@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Compound">
+      <UniqueIdentifier>{793e9e7f-6254-4b64-88d9-1b6abd98dc99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Compound\Core">
+      <UniqueIdentifier>{6b691b8d-e9a1-4f57-a288-8749434bb34a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Compound\IO">
+      <UniqueIdentifier>{24415e97-031c-44ed-a84d-a3a9f561dd26}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Run.cpp" />
+    <ClCompile Include="Compound\Core\ComponentManager.cpp">
+      <Filter>Compound\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Compound\Core\ComponentType.cpp">
+      <Filter>Compound\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Compound\Core\Component.cpp">
+      <Filter>Compound\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Compound\IO\JSONObject.cpp">
+      <Filter>Compound\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Compound\Core\Object.cpp">
+      <Filter>Compound\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Compound\Core\Instance.cpp">
+      <Filter>Compound\Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Compound\Core\ComponentManager.h">
+      <Filter>Compound\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Compound\Core\ComponentType.h">
+      <Filter>Compound\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Compound\Core\Component.h">
+      <Filter>Compound\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Compound\IO\JSONSerializable.h">
+      <Filter>Compound\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Compound\IO\JSONObject.h">
+      <Filter>Compound\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Compound\Core\Object.h">
+      <Filter>Compound\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Compound\Core\Instance.h">
+      <Filter>Compound\Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
