@@ -126,6 +126,7 @@
     <ClCompile Include="Compound\Core\Object.cpp" />
     <ClCompile Include="Compound\IO\JSONObject.cpp" />
     <ClCompile Include="Run.cpp" />
+    <ClCompile Include="TestPrintComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Compound\Core\Component.h" />
@@ -135,6 +136,7 @@
     <ClInclude Include="Compound\Core\Object.h" />
     <ClInclude Include="Compound\IO\JSONObject.h" />
     <ClInclude Include="Compound\IO\JSONSerializable.h" />
+    <ClInclude Include="TestPrintComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

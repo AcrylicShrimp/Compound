@@ -12,6 +12,7 @@
 #include "ComponentType.h"
 
 #include <functional>
+#include <memory>
 #include <stdexcept>
 #include <string>
 #include <string_view>
@@ -42,8 +43,10 @@ namespace Compound::Core
 		template<class T> inline const ComponentType *type() const;
 		template<class T> inline void registerComponent();
 		template<class T, class B> inline void registerComponent();
-		template<class T> inline void registerComponent(std::function<Component(Object *)> fConstructor);
-		template<class T, class B> inline void registerComponent(std::function<Component(Object *)> fConstructor);
+		template<class T> inline void registerComponent(std::function<std::unique_ptr<Component>(Object *)> fConstructor);
+		template<class T, class B> inline void registerComponent(std::function<std::unique_ptr<Component>(Object *)> fConstructor);
+		template<class T> inline void registerComponentWithDefaultConstructor();
+		template<class T, class B> inline void registerComponentWithDefaultConstructor();
 	};
 
 	inline const ComponentType *ComponentManager::type(std::string_view sTypeName) const
@@ -62,11 +65,17 @@ namespace Compound::Core
 
 	template<class T> inline void ComponentManager::registerComponent()
 	{
+		static_assert(std::is_base_of<Component, T>());
+
 		this->registerComponent<T, Component>();
 	}
 
 	template<class T, class B> inline void ComponentManager::registerComponent()
 	{
+		static_assert(std::is_base_of<B, T>());
+		static_assert(std::is_base_of<Component, T>());
+		static_assert(std::is_base_of<Component, B>());
+
 		if (this->type<T>())
 			throw std::exception{"already registered component type"};
 
@@ -80,13 +89,19 @@ namespace Compound::Core
 		this->sTypeMap.emplace(std::piecewise_construct, std::forward_as_tuple(sTypeName), std::forward_as_tuple(pBaseType, sTypeName));
 	}
 
-	template<class T> inline void ComponentManager::registerComponent(std::function<Component(Object *)> fConstructor)
+	template<class T> inline void ComponentManager::registerComponent(std::function<std::unique_ptr<Component>(Object *)> fConstructor)
 	{
+		static_assert(std::is_base_of<Component, T>());
+
 		this->registerComponent<T, Component>(fConstructor);
 	}
 
-	template<class T, class B> inline void ComponentManager::registerComponent(std::function<Component(Object *)> fConstructor)
+	template<class T, class B> inline void ComponentManager::registerComponent(std::function<std::unique_ptr<Component>(Object *)> fConstructor)
 	{
+		static_assert(std::is_base_of<B, T>());
+		static_assert(std::is_base_of<Component, T>());
+		static_assert(std::is_base_of<Component, B>());
+
 		if (this->type<T>())
 			throw std::exception{"already registered component type"};
 
@@ -98,6 +113,35 @@ namespace Compound::Core
 		auto sTypeName{T::typeName()};
 
 		this->sTypeMap.emplace(std::piecewise_construct, std::forward_as_tuple(sTypeName), std::forward_as_tuple(pBaseType, sTypeName, fConstructor));
+	}
+
+	template<class T> inline void ComponentManager::registerComponentWithDefaultConstructor()
+	{
+		static_assert(std::is_base_of<Component, T>());
+
+		this->registerComponentWithDefaultConstructor<T, Component>();
+	}
+
+	template<class T, class B> inline void ComponentManager::registerComponentWithDefaultConstructor()
+	{
+		static_assert(std::is_base_of<B, T>());
+		static_assert(std::is_base_of<Component, T>());
+		static_assert(std::is_base_of<Component, B>());
+
+		if (this->type<T>())
+			throw std::exception{"already registered component type"};
+
+		const auto *pBaseType{this->type<B>()};
+
+		if (!pBaseType)
+			throw std::exception{"already registered component type"};
+
+		auto sTypeName{T::typeName()};
+
+		this->sTypeMap.emplace(std::piecewise_construct, std::forward_as_tuple(sTypeName), std::forward_as_tuple(pBaseType, sTypeName, [](Object *pObject)
+		{
+			return std::unique_ptr<Component>{new T(pObject)};
+		}));
 	}
 }
 

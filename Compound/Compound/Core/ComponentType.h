@@ -9,6 +9,7 @@
 #define _CLASS_COMPOUND_CORE_COMPONENTTYPE_H
 
 #include <functional>
+#include <memory>
 #include <stdexcept>
 #include <string>
 #include <string_view>
@@ -23,11 +24,11 @@ namespace Compound::Core
 	private:
 		const ComponentType *pBaseType;
 		std::string sTypeName;
-		std::function<Component(Object *)> fConstructor;
+		std::function<std::unique_ptr<Component>(Object *)> fConstructor;
 		
 	public:
 		ComponentType(const ComponentType *pBaseType, std::string_view sTypeName);
-		ComponentType(const ComponentType *pBaseType, std::string_view sTypeName, std::function<Component(Object *)> fConstructor);
+		ComponentType(const ComponentType *pBaseType, std::string_view sTypeName, std::function<std::unique_ptr<Component>(Object *)> fConstructor);
 		ComponentType(const ComponentType &sSrc) = delete;
 		~ComponentType() = default;
 		
@@ -42,7 +43,7 @@ namespace Compound::Core
 		bool isDerivatedFrom(const ComponentType *pBaseType) const;
 		bool isExactlyBaseOf(const ComponentType *pDerivedType) const;
 		bool isExactlyDerivatedFrom(const ComponentType *pBaseType) const;
-		Component construct(Object *pObject) const;
+		std::unique_ptr<Component> construct(Object *pObject) const;
 
 	private:
 		static bool isBaseOf(const ComponentType *pBaseType, const ComponentType *pDerivedType);

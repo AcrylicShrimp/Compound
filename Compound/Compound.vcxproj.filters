@@ -31,6 +31,7 @@
     <ClCompile Include="Compound\Core\Instance.cpp">
       <Filter>Compound\Core</Filter>
     </ClCompile>
+    <ClCompile Include="TestPrintComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Compound\Core\ComponentManager.h">
@@ -54,5 +55,6 @@
     <ClInclude Include="Compound\Core\Instance.h">
       <Filter>Compound\Core</Filter>
     </ClInclude>
+    <ClInclude Include="TestPrintComponent.h" />
   </ItemGroup>
 </Project>

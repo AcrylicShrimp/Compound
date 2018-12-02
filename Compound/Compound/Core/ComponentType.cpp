@@ -17,7 +17,7 @@ namespace Compound::Core
 		//Empty.
 	}
 	
-	ComponentType::ComponentType(const ComponentType *pBaseType, std::string_view sTypeName, std::function<Component(Object *)> fConstructor) :
+	ComponentType::ComponentType(const ComponentType *pBaseType, std::string_view sTypeName, std::function<std::unique_ptr<Component>(Object *)> fConstructor) :
 		sTypeName{sTypeName},
 		pBaseType{pBaseType},
 		fConstructor{fConstructor}
@@ -71,7 +71,7 @@ namespace Compound::Core
 		return false;
 	}
 
-	Component ComponentType::construct(Object *pObject) const
+	std::unique_ptr<Component> ComponentType::construct(Object *pObject) const
 	{
 		if (!this->fConstructor)
 			throw std::exception{"not constructible component type"};

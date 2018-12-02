@@ -13,7 +13,12 @@
 #include "ComponentType.h"
 #include "Instance.h"
 
+#include <iterator>
+#include <memory>
+#include <type_traits>
 #include <unordered_map>
+#include <unordered_set>
+#include <vector>
 
 namespace Compound::Core
 {
@@ -21,7 +26,8 @@ namespace Compound::Core
 	{
 	private:
 		Instance *pInstance;
-		std::unordered_multimap<const ComponentType *, Component> sComponentMap;
+		std::unordered_set<std::unique_ptr<Component>> sComponentSet;
+		std::unordered_multimap<const ComponentType *, Component *> sComponentMap;
 
 	public:
 		Object(Instance *pInstance);
@@ -38,10 +44,14 @@ namespace Compound::Core
 		template<class T> inline const T *component() const;
 		template<class T> inline std::vector<T *> componentAll();
 		template<class T> inline const std::vector<T *> componentAll() const;
+		template<class T> inline T *addComponent();
+		Component *component();
 		Component *component(const ComponentType *pComponentType);
 		const Component *component(const ComponentType *pComponentType) const;
+		std::vector<Component *> componentAll();
 		std::vector<Component *> componentAll(const ComponentType *pComponentType);
 		std::vector<const Component *> componentAll(const ComponentType *pComponentType) const;
+		Component *addComponent(const ComponentType *pComponentType);
 	};
 
 	inline Instance *Object::instance()
@@ -56,42 +66,63 @@ namespace Compound::Core
 
 	template<class T> inline T *Object::component()
 	{
-		return this->component(this->pInstance->componentManager().type<T>());
+		static_assert(std::is_base_of<Component, T>());
+
+		return static_cast<T *>(this->component(this->pInstance->componentManager().type<T>()));
 	}
 
 	template<class T> inline const T *Object::component() const
 	{
-		return this->component(this->pInstance->componentManager().type<T>());
+		static_assert(std::is_base_of<Component, T>());
+
+		return static_cast<T *>(this->component(this->pInstance->componentManager().type<T>()));
 	}
 
 	template<class T> inline std::vector<T *> Object::componentAll()
 	{
-		return this->componentAll(this->pInstance->componentManager().type<T>());
+		static_assert(std::is_base_of<Component, T>());
+
+		const auto *pComponentType{this->pInstance->componentManager().type<T>()};
+
+		if (!pComponentType)
+			return {};
+
+		auto sPair{this->sComponentMap.equal_range(pComponentType)};
+
+		std::vector<T *> sResult;
+		sResult.reserve(std::distance(sPair.first, sPair.second));
+
+		for (; sPair.first != sPair.second; ++sPair.first)
+			sResult.emplace_back(static_cast<T *>(sPair.first->second));
+
+		return sResult;
 	}
 
 	template<class T> inline const std::vector<T *> Object::componentAll() const
 	{
-		return this->componentAll(this->pInstance->componentManager().type<T>());
+		static_assert(std::is_base_of<Component, T>());
+
+		const auto *pComponentType{this->pInstance->componentManager().type<T>()};
+
+		if (!pComponentType)
+			return {};
+
+		auto sPair{this->sComponentMap.equal_range(pComponentType)};
+
+		std::vector<const T *> sResult;
+		sResult.reserve(std::distance(sPair.first, sPair.second));
+
+		for (; sPair.first != sPair.second; ++sPair.first)
+			sResult.emplace_back(static_cast<const T *>(sPair.first->second));
+
+		return sResult;
 	}
 
-	Component *Object::component(const ComponentType *pComponentType)
+	template<class T> inline T *Object::addComponent()
 	{
+		static_assert(std::is_base_of<Component, T>());
 
-	}
-
-	const Component *Object::component(const ComponentType *pComponentType) const
-	{
-
-	}
-
-	std::vector<Component *> Object::componentAll(const ComponentType *pComponentType)
-	{
-
-	}
-
-	std::vector<const Component *> Object::componentAll(const ComponentType *pComponentType) const
-	{
-
+		return static_cast<T *>(this->addComponent(this->pInstance->componentManager().type<T>()));
 	}
 }
 
