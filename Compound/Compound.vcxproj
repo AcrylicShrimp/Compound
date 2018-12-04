@@ -29,27 +29,27 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -126,7 +126,9 @@
     <ClCompile Include="Compound\Core\Object.cpp" />
     <ClCompile Include="Compound\IO\JSONObject.cpp" />
     <ClCompile Include="Run.cpp" />
-    <ClCompile Include="TestPrintComponent.cpp" />
+    <ClCompile Include="TestConsoleLogger.cpp" />
+    <ClCompile Include="TestFileLogger.cpp" />
+    <ClCompile Include="TestLogger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Compound\Core\Component.h" />
@@ -136,7 +138,9 @@
     <ClInclude Include="Compound\Core\Object.h" />
     <ClInclude Include="Compound\IO\JSONObject.h" />
     <ClInclude Include="Compound\IO\JSONSerializable.h" />
-    <ClInclude Include="TestPrintComponent.h" />
+    <ClInclude Include="TestConsoleLogger.h" />
+    <ClInclude Include="TestFileLogger.h" />
+    <ClInclude Include="TestLogger.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

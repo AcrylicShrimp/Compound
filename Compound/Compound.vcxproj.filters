@@ -31,7 +31,9 @@
     <ClCompile Include="Compound\Core\Instance.cpp">
       <Filter>Compound\Core</Filter>
     </ClCompile>
-    <ClCompile Include="TestPrintComponent.cpp" />
+    <ClCompile Include="TestLogger.cpp" />
+    <ClCompile Include="TestConsoleLogger.cpp" />
+    <ClCompile Include="TestFileLogger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Compound\Core\ComponentManager.h">
@@ -55,6 +57,8 @@
     <ClInclude Include="Compound\Core\Instance.h">
       <Filter>Compound\Core</Filter>
     </ClInclude>
-    <ClInclude Include="TestPrintComponent.h" />
+    <ClInclude Include="TestLogger.h" />
+    <ClInclude Include="TestConsoleLogger.h" />
+    <ClInclude Include="TestFileLogger.h" />
   </ItemGroup>
 </Project>
