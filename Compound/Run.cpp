@@ -32,15 +32,15 @@ int main()
 	sObject.addComponent<TestConsoleLogger>();
 	sObject.addComponent<TestFileLogger>();
 
-	std::cout << sObject.component<TestConsoleLogger>()->type()->typeName() << std::endl;
-	std::cout << sObject.component<TestFileLogger>()->type()->typeName() << std::endl;
-
 	auto sLogger{sObject.componentAll<TestLogger>()};
 
 	std::cout << "Number of TestLogger Object : " << sLogger.size() << std::endl;
 
-	for (auto *sLogger : sLogger)
-		sLogger->log("This is my test message.\n");
+	for (auto *pLogger : sLogger)
+	{
+		std::cout << pLogger->type()->typeName() << std::endl;
+		pLogger->log("This is my test message.\n");
+	}
 
 	return 0;
 }
