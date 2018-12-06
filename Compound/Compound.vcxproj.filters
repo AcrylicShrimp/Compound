@@ -10,6 +10,9 @@
     <Filter Include="Compound\IO">
       <UniqueIdentifier>{24415e97-031c-44ed-a84d-a3a9f561dd26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Compound\Math">
+      <UniqueIdentifier>{3a09b15c-2c9c-494c-9dce-84f944be61bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Run.cpp" />
@@ -60,5 +63,14 @@
     <ClInclude Include="TestLogger.h" />
     <ClInclude Include="TestConsoleLogger.h" />
     <ClInclude Include="TestFileLogger.h" />
+    <ClInclude Include="Compound\Math\Vec.h">
+      <Filter>Compound\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Compound\Math\VecOp.h">
+      <Filter>Compound\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Compound\Math\Vec.hpp">
+      <Filter>Compound\Math</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

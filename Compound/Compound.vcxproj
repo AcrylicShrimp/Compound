@@ -138,6 +138,9 @@
     <ClInclude Include="Compound\Core\Object.h" />
     <ClInclude Include="Compound\IO\JSONObject.h" />
     <ClInclude Include="Compound\IO\JSONSerializable.h" />
+    <ClInclude Include="Compound\Math\Vec.h" />
+    <ClInclude Include="Compound\Math\Vec.hpp" />
+    <ClInclude Include="Compound\Math\VecOp.h" />
     <ClInclude Include="TestConsoleLogger.h" />
     <ClInclude Include="TestFileLogger.h" />
     <ClInclude Include="TestLogger.h" />

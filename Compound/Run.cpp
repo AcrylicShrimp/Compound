@@ -5,18 +5,27 @@
 #include "Compound/Core/Instance.h"
 #include "Compound/Core/Object.h"
 
+#include "Compound/Math/VecOp.h"
+
 #include "TestLogger.h"
 #include "TestConsoleLogger.h"
 #include "TestFileLogger.h"
 
 #include <iostream>
 #include <memory>
+#include <vector>
 
 int main()
 {
 	using namespace Compound::Core;
+	using namespace Compound::Math;
 
 	Instance sInstance;
+
+	//std::cout << A[0] << std::endl;
+	//std::cout << A[1] << std::endl;
+	//std::cout << A[2] << std::endl;
+	//std::cout << A[3] << std::endl;
 	
 	sInstance.componentManager().registerComponent<TestLogger>();
 	sInstance.componentManager().registerComponentWithDefaultConstructor<TestConsoleLogger, TestLogger>();
