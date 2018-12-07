@@ -10,6 +10,7 @@
 
 #include "VecOp.h"
 
+#include <algorithm>
 #include <array>
 #include <cstddef>
 #include <initializer_list>
@@ -18,6 +19,8 @@ namespace Compound::Math
 {
 	template<class T, std::size_t D> class Vec : public VecOp<T, D, Vec<T, D>>
 	{
+		static_assert(D >= 1);
+
 	private:
 		std::array<T, D> sVec;
 
@@ -26,29 +29,29 @@ namespace Compound::Math
 		Vec(const T &tScalar);
 		Vec(const Vec &sSrc);
 		Vec(std::initializer_list<T> sList);
-		Vec(std::array::const_iterator &iBegin, std::array::const_iterator &iEnd);
+		Vec(typename std::array<T, D>::const_iterator &iBegin, typename std::array<T, D>::const_iterator &iEnd);
 		~Vec() = default;
 
 	public:
 		Vec &operator=(const T &tScalar);
 		Vec &operator=(const Vec &sSrc);
-		Vec &operator=(const VecOp<T, D> &sVecOp);
+		template<class E> Vec &operator=(const VecOp<T, D, E> &sVecOp);
 		Vec &operator+=(const Vec &sVec);
-		Vec &operator+=(const VecOp<T, D> &sVecOp);
+		template<class E> Vec &operator+=(const VecOp<T, D, E> &sVecOp);
 		Vec &operator-=(const Vec &sVec);
-		Vec &operator-=(const VecOp<T, D> &sVecOp);
+		template<class E> Vec &operator-=(const VecOp<T, D, E> &sVecOp);
 		Vec &operator*=(const T &tScalar);
 		Vec &operator*=(const Vec &sVec);
-		Vec &operator*=(const VecOp<T, D> &sVecOp);
+		template<class E> Vec &operator*=(const VecOp<T, D, E> &sVecOp);
 		Vec &operator/=(const T &tScalar);
 		Vec &operator/=(const Vec &sVec);
-		Vec &operator/=(const VecOp<T, D> &sVecOp);
+		template<class E> Vec &operator/=(const VecOp<T, D, E> &sVecOp);
 		bool operator==(const Vec &sVec) const;
-		bool operator==(const VecOp<T, D> &sVecOp) const;
+		template<class E> bool operator==(const VecOp<T, D, E> &sVecOp) const;
 		bool operator!=(const Vec &sVec) const;
-		bool operator!=(const VecOp<T, D> &sVecOp) const;
-		T &operator=(std::size_t nIndex);
-		const T &operator=(std::size_t nIndex);
+		template<class E> bool operator!=(const VecOp<T, D, E> &sVecOp) const;
+		T &operator[](std::size_t nIndex);
+		const T &operator[](std::size_t nIndex) const;
 		
 	public:
 		static inline Vec zero();
@@ -60,6 +63,46 @@ namespace Compound::Math
 		static inline Vec positiveZ();
 		static inline Vec negativeZ();
 	};
+
+	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::zero()
+	{
+
+	}
+
+	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::one()
+	{
+
+	}
+
+	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::positiveX()
+	{
+
+	}
+
+	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::negativeX()
+	{
+
+	}
+
+	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::positiveY()
+	{
+
+	}
+
+	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::negativeY()
+	{
+
+	}
+
+	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::positiveZ()
+	{
+
+	}
+
+	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::negativeZ()
+	{
+
+	}
 }
 
 #include "Vec.hpp"

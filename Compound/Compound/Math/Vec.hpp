@@ -8,8 +8,7 @@ namespace Compound::Math
 {
 	template<class T, std::size_t D> Vec<T, D>::Vec(const T &tScalar)
 	{
-		for (auto &tElem : this->sVec)
-			tElem = tScalar;
+		this->sVec.fill(tScalar);
 	}
 
 	template<class T, std::size_t D> Vec<T, D>::Vec(const Vec &sSrc)
@@ -19,75 +18,75 @@ namespace Compound::Math
 
 	template<class T, std::size_t D> Vec<T, D>::Vec(std::initializer_list<T> sList)
 	{
-
+		static_assert(sList.size() == D);
 	}
 
-	template<class T, std::size_t D> Vec<T, D>::Vec(std::array::const_iterator &iBegin, std::array::const_iterator &iEnd)
+	template<class T, std::size_t D> Vec<T, D>::Vec(typename std::array<T, D>::const_iterator &iBegin, typename std::array<T, D>::const_iterator &iEnd)
 	{
 
 	}
 
-	template<class T, std::size_t D> Vec &Vec<T, D>::operator=(const T &tScalar)
+	template<class T, std::size_t D> Vec<T, D> &Vec<T, D>::operator=(const T &tScalar)
 	{
 
 	}
 	
-	template<class T, std::size_t D> Vec &Vec<T, D>::operator=(const Vec &sSrc)
+	template<class T, std::size_t D> Vec<T, D> &Vec<T, D>::operator=(const Vec &sSrc)
 	{
 
 	}
 
-	template<class T, std::size_t D> Vec &Vec<T, D>::operator=(const VecOp<T, D> &sVecOp)
+	template<class T, std::size_t D> template<class E> Vec<T, D> &Vec<T, D>::operator=(const VecOp<T, D, E> &sVecOp)
 	{
 
 	}
 
-	template<class T, std::size_t D> Vec &Vec<T, D>::operator+=(const Vec &sVec)
+	template<class T, std::size_t D> Vec<T, D> &Vec<T, D>::operator+=(const Vec &sVec)
 	{
 
 	}
 
-	template<class T, std::size_t D> Vec &Vec<T, D>::operator+=(const VecOp<T, D> &sVecOp)
+	template<class T, std::size_t D> template<class E> Vec<T, D> &Vec<T, D>::operator+=(const VecOp<T, D, E> &sVecOp)
 	{
 
 	}
 
-	template<class T, std::size_t D> Vec &Vec<T, D>::operator-=(const Vec &sVec)
+	template<class T, std::size_t D> Vec<T, D> &Vec<T, D>::operator-=(const Vec &sVec)
 	{
 
 	}
 
-	template<class T, std::size_t D> Vec &Vec<T, D>::operator-=(const VecOp<T, D> &sVecOp)
+	template<class T, std::size_t D> template<class E> Vec<T, D> &Vec<T, D>::operator-=(const VecOp<T, D, E> &sVecOp)
 	{
 
 	}
 
-	template<class T, std::size_t D> Vec &Vec<T, D>::operator*=(const T &tScalar)
+	template<class T, std::size_t D> Vec<T, D> &Vec<T, D>::operator*=(const T &tScalar)
 	{
 
 	}
 
-	template<class T, std::size_t D> Vec &Vec<T, D>::operator*=(const Vec &sVec)
+	template<class T, std::size_t D> Vec<T, D> &Vec<T, D>::operator*=(const Vec &sVec)
 	{
 
 	}
 
-	template<class T, std::size_t D> Vec &Vec<T, D>::operator*=(const VecOp<T, D> &sVecOp)
+	template<class T, std::size_t D> template<class E> Vec<T, D> &Vec<T, D>::operator*=(const VecOp<T, D, E> &sVecOp)
 	{
 
 	}
 
-	template<class T, std::size_t D> Vec &Vec<T, D>::operator/=(const T &tScalar)
+	template<class T, std::size_t D> Vec<T, D> &Vec<T, D>::operator/=(const T &tScalar)
 	{
 
 	}
 
-	template<class T, std::size_t D> Vec &Vec<T, D>::operator/=(const Vec &sVec)
+	template<class T, std::size_t D> Vec<T, D> &Vec<T, D>::operator/=(const Vec &sVec)
 	{
 
 	}
 
-	template<class T, std::size_t D> Vec &Vec<T, D>::operator/=(const VecOp<T, D> &sVecOp)
+	template<class T, std::size_t D> template<class E> Vec<T, D> &Vec<T, D>::operator/=(const VecOp<T, D, E> &sVecOp)
 	{
 
 	}
@@ -97,7 +96,7 @@ namespace Compound::Math
 
 	}
 
-	template<class T, std::size_t D> bool Vec<T, D>::operator==(const VecOp<T, D> &sVecOp) const
+	template<class T, std::size_t D> template<class E> bool Vec<T, D>::operator==(const VecOp<T, D, E> &sVecOp) const
 	{
 
 	}
@@ -107,57 +106,17 @@ namespace Compound::Math
 
 	}
 
-	template<class T, std::size_t D> bool Vec<T, D>::operator!=(const VecOp<T, D> &sVecOp) const
+	template<class T, std::size_t D> template<class E> bool Vec<T, D>::operator!=(const VecOp<T, D, E> &sVecOp) const
 	{
 
 	}
 
-	template<class T, std::size_t D> T &Vec<T, D>::operator=(std::size_t nIndex)
+	template<class T, std::size_t D> T &Vec<T, D>::operator[](std::size_t nIndex)
 	{
 
 	}
 
-	template<class T, std::size_t D> const T &Vec<T, D>::operator=(std::size_t nIndex)
-	{
-
-	}
-
-	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::zero()
-	{
-
-	}
-
-	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::one()
-	{
-
-	}
-
-	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::positiveX()
-	{
-
-	}
-
-	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::negativeX()
-	{
-
-	}
-
-	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::positiveY()
-	{
-
-	}
-
-	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::negativeY()
-	{
-
-	}
-
-	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::positiveZ()
-	{
-
-	}
-
-	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::negativeZ()
+	template<class T, std::size_t D> const T &Vec<T, D>::operator[](std::size_t nIndex) const
 	{
 
 	}
