@@ -13,15 +13,22 @@ namespace Compound::Math
 
 	template<class T, std::size_t D> Vec<T, D>::Vec(const Vec &sSrc)
 	{
-
+		std::copy(sSrc.cbegin(), sSrc.cend(), this->sVec);
 	}
 
 	template<class T, std::size_t D> Vec<T, D>::Vec(std::initializer_list<T> sList)
 	{
 		static_assert(sList.size() == D);
+
+		std::copy(sList.begin(), sList.end(), this->sVec);
 	}
 
 	template<class T, std::size_t D> Vec<T, D>::Vec(typename std::array<T, D>::const_iterator &iBegin, typename std::array<T, D>::const_iterator &iEnd)
+	{
+		std::copy(iBegin, iEnd, this->sVec);
+	}
+
+	template<class T, std::size_t D> template<class E> Vec<T, D>::Vec(const VecOp<T, D, E> &sVecOp)
 	{
 
 	}
