@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cassert>
 #include <cstddef>
 #include <initializer_list>
 
@@ -62,6 +63,7 @@ namespace Compound::Math
 		static inline Vec negativeY();
 		static inline Vec positiveZ();
 		static inline Vec negativeZ();
+		static inline Vec oneHot(std::size_t nIndex);
 	};
 
 	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::zero()
@@ -102,6 +104,11 @@ namespace Compound::Math
 	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::negativeZ()
 	{
 
+	}
+
+	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::oneHot(std::size_t nIndex)
+	{
+		assert(nIndex < D);
 	}
 }
 

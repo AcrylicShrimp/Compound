@@ -13,7 +13,7 @@ namespace Compound::Math
 
 	template<class T, std::size_t D> Vec<T, D>::Vec(const Vec &sSrc)
 	{
-
+		
 	}
 
 	template<class T, std::size_t D> Vec<T, D>::Vec(std::initializer_list<T> sList)

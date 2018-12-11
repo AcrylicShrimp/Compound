@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{63BDBF28-65B0-49C6-A3E5-FCA7869DFC06}</ProjectGuid>
-    <RootNamespace>Compound</RootNamespace>
+    <ProjectGuid>{C43D36CE-9CA2-4DAB-A406-43BF46CE3671}</ProjectGuid>
+    <RootNamespace>Test</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -74,7 +74,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
@@ -82,7 +82,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
@@ -119,34 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Compound\Core\Component.cpp" />
-    <ClCompile Include="Compound\Core\ComponentManager.cpp" />
-    <ClCompile Include="Compound\Core\ComponentType.cpp" />
-    <ClCompile Include="Compound\Core\Instance.cpp" />
-    <ClCompile Include="Compound\Core\Object.cpp" />
-    <ClCompile Include="Compound\IO\JSONObject.cpp" />
-    <ClCompile Include="Compound\Render\ShaderLayout.cpp" />
     <ClCompile Include="Run.cpp" />
-    <ClCompile Include="TestConsoleLogger.cpp" />
-    <ClCompile Include="TestFileLogger.cpp" />
-    <ClCompile Include="TestLogger.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Compound\Core\Component.h" />
-    <ClInclude Include="Compound\Core\ComponentManager.h" />
-    <ClInclude Include="Compound\Core\ComponentType.h" />
-    <ClInclude Include="Compound\Core\Instance.h" />
-    <ClInclude Include="Compound\Core\Object.h" />
-    <ClInclude Include="Compound\IO\JSONObject.h" />
-    <ClInclude Include="Compound\IO\JSONSerializable.h" />
-    <ClInclude Include="Compound\Math\Vec.h" />
-    <ClInclude Include="Compound\Math\Vec.hpp" />
-    <ClInclude Include="Compound\Math\VecOp.h" />
-    <ClInclude Include="Compound\Render\Mesh.h" />
-    <ClInclude Include="Compound\Render\ShaderLayout.h" />
-    <ClInclude Include="TestConsoleLogger.h" />
-    <ClInclude Include="TestFileLogger.h" />
-    <ClInclude Include="TestLogger.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

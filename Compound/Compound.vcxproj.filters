@@ -13,6 +13,9 @@
     <Filter Include="Compound\Math">
       <UniqueIdentifier>{3a09b15c-2c9c-494c-9dce-84f944be61bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Compound\Render">
+      <UniqueIdentifier>{4a09d113-5fdc-4d26-913f-ab0c084aa0e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Run.cpp" />
@@ -37,6 +40,9 @@
     <ClCompile Include="TestLogger.cpp" />
     <ClCompile Include="TestConsoleLogger.cpp" />
     <ClCompile Include="TestFileLogger.cpp" />
+    <ClCompile Include="Compound\Render\ShaderLayout.cpp">
+      <Filter>Compound\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Compound\Core\ComponentManager.h">
@@ -71,6 +77,12 @@
     </ClInclude>
     <ClInclude Include="Compound\Math\Vec.hpp">
       <Filter>Compound\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Compound\Render\Mesh.h">
+      <Filter>Compound\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Compound\Render\ShaderLayout.h">
+      <Filter>Compound\Render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
