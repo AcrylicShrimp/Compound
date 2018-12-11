@@ -22,11 +22,6 @@ int main()
 
 	Instance sInstance;
 
-	//std::cout << A[0] << std::endl;
-	//std::cout << A[1] << std::endl;
-	//std::cout << A[2] << std::endl;
-	//std::cout << A[3] << std::endl;
-	
 	sInstance.componentManager().registerComponent<TestLogger>();
 	sInstance.componentManager().registerComponentWithDefaultConstructor<TestConsoleLogger, TestLogger>();
 	sInstance.componentManager().registerComponentWithDefaultConstructor<TestFileLogger, TestLogger>();

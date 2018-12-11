@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cassert>
 #include <cstddef>
 #include <initializer_list>
 
@@ -197,6 +198,11 @@ namespace Compound::Math
 		sZero[nIndex] = T(1);
 
 		return sZero;
+	}
+
+	template<class T, std::size_t D> inline Vec<T, D> Vec<T, D>::oneHot(std::size_t nIndex)
+	{
+		assert(nIndex < D);
 	}
 }
 
