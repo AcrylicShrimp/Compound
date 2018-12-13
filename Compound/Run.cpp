@@ -51,7 +51,7 @@ int main()
 		Vec<float, 2> sVec2;
 		Vec<float, 3> sVec3;
 		Vec<float, 4> sVec4;
-
+	
 		std::cout << "------------------------------------" << std::endl;
 		std::cout << "TEST 3" << std::endl;
 		std::cout << sVec1 << std::endl;
@@ -61,13 +61,13 @@ int main()
 		std::cout << "END OF TEST 3" << std::endl;
 		std::cout << "------------------------------------" << std::endl << std::endl;
 	}
-
+	
 	{
 		Vec<float, 1> sVec1(100.f);
 		Vec<float, 2> sVec2(100.f);
 		Vec<float, 3> sVec3(100.f);
 		Vec<float, 4> sVec4(100.f);
-
+	
 		std::cout << "------------------------------------" << std::endl;
 		std::cout << "TEST 4" << std::endl;
 		std::cout << sVec1 << std::endl;
@@ -77,18 +77,18 @@ int main()
 		std::cout << "END OF TEST 4" << std::endl;
 		std::cout << "------------------------------------" << std::endl << std::endl;
 	}
-
+	
 	{
 		Vec<float, 1> sVec1(100.f);
 		Vec<float, 2> sVec2(100.f);
 		Vec<float, 3> sVec3(100.f);
 		Vec<float, 4> sVec4(100.f);
-
+	
 		Vec<float, 1> sVec1Copy(sVec1);
 		Vec<float, 2> sVec2Copy(sVec2);
 		Vec<float, 3> sVec3Copy(sVec3);
 		Vec<float, 4> sVec4Copy(sVec4);
-
+	
 		std::cout << "------------------------------------" << std::endl;
 		std::cout << "TEST 5" << std::endl;
 		std::cout << sVec1Copy << std::endl;
@@ -98,40 +98,40 @@ int main()
 		std::cout << "END OF TEST 5" << std::endl;
 		std::cout << "------------------------------------" << std::endl << std::endl;
 	}
-
+	
 	{
 		Vec<float, 1> sVec1{1.f};
 		Vec<float, 2> sVec2{1.f, 2.f};
 		Vec<float, 3> sVec3{1.f, 2.f, 3.f};
 		Vec<float, 4> sVec4{1.f, 2.f, 3.f, 4.f};
-
+	
 		std::cout << "------------------------------------" << std::endl;
 		std::cout << "TEST 6" << std::endl;
 		std::cout << sVec1.magnitude() << std::endl;
 		std::cout << sVec2.magnitude() << std::endl;
 		std::cout << sVec3.magnitude() << std::endl;
 		std::cout << sVec4.magnitude() << std::endl << std::endl;
-
+	
 		std::cout << sVec1.normalized() << std::endl;
 		std::cout << sVec2.normalized() << std::endl;
 		std::cout << sVec3.normalized() << std::endl;
 		std::cout << sVec4.normalized() << std::endl << std::endl;
-
+	
 		std::cout << sVec1 + sVec1 << std::endl;
 		std::cout << sVec2 + sVec2 << std::endl;
 		std::cout << sVec3 + sVec3 << std::endl;
 		std::cout << sVec4 + sVec4 << std::endl << std::endl;
-
+	
 		std::cout << sVec1 - sVec1 << std::endl;
 		std::cout << sVec2 - sVec2 << std::endl;
 		std::cout << sVec3 - sVec3 << std::endl;
 		std::cout << sVec4 - sVec4 << std::endl << std::endl;
-
+	
 		std::cout << 2 * sVec1 << std::endl;
 		std::cout << 2 * sVec2 << std::endl;
 		std::cout << 2 * sVec3 << std::endl;
 		std::cout << 2 * sVec4 << std::endl << std::endl;
-
+	
 		std::cout << sVec1 * 2 << std::endl;
 		std::cout << sVec2 * 2 << std::endl;
 		std::cout << sVec3 * 2 << std::endl;
@@ -139,17 +139,24 @@ int main()
 		std::cout << "END OF TEST 6" << std::endl;
 		std::cout << "------------------------------------" << std::endl << std::endl;
 	}
-
+	
 	{
 		Vec<float, 1> sVec1From(.0f);
 		Vec<float, 2> sVec2From(.0f);
 		Vec<float, 3> sVec3From(.0f);
 		Vec<float, 4> sVec4From(.0f);
-
+	
 		Vec<float, 1> sVec1To{1.f};
 		Vec<float, 2> sVec2To{1.f, 2.f};
 		Vec<float, 3> sVec3To{1.f, 2.f, 3.f};
 		Vec<float, 4> sVec4To{1.f, 2.f, 3.f, 4.f};
+
+		auto exp{Vec<float, 4>::lerp(sVec4From, sVec4To, .2f)};
+
+		std::cout << exp << std::endl;
+		std::cout << exp << std::endl;
+		std::cout << exp << std::endl;
+		std::cout << exp << std::endl;
 
 		std::cout << "------------------------------------" << std::endl;
 		std::cout << "TEST 7" << std::endl;

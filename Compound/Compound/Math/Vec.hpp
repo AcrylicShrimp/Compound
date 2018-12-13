@@ -253,33 +253,8 @@ namespace Compound::Math
 	{
 		return this->sVec.crend();
 	}
-
-	template<class T, std::size_t D> T Vec<T, D>::sum() const
-	{
-		T tSum{0};
-
-		for (std::size_t nIndex{0}; nIndex < D; ++nIndex)
-			tSum += this->sVec[nIndex];
-
-		return tSum;
-	}
 	
-	template<class T, std::size_t D> T Vec<T, D>::magnitude() const
-	{
-		return std::sqrt(this->magnitudeSquare());
-	}
-
-	template<class T, std::size_t D> T Vec<T, D>::magnitudeSquare() const
-	{
-		T tSum{0};
-
-		for (std::size_t nIndex{0}; nIndex < D; ++nIndex)
-			tSum += this->sVec[nIndex] * this->sVec[nIndex];
-
-		return tSum;
-	}
-
-	template<class T, std::size_t D> Vec<T, D> Vec<T, D>::normalized() const
+	template<class T, std::size_t D> VecOpDivide<T, D, const Vec<T, D> &, T> Vec<T, D>::normalized() const
 	{
 		return *this / this->magnitude();
 	}
@@ -359,13 +334,13 @@ namespace Compound::Math
 
 	template<class T, std::size_t D> template<class EL, class ER> Vec<T, D> Vec<T, D>::cross(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight)
 	{
+		static_assert(D == 3);
+
 
 	}
 
-	template<class T, std::size_t D> template<class EL, class ER> Vec<T, D> Vec<T, D>::lerp(const VecOp<T, D, EL> &sFrom, const VecOp<T, D, ER> &sTo, T tT)
+	template<class T, std::size_t D> template<class EL, class ER> decltype(auto) Vec<T, D>::lerp(const VecOp<T, D, EL> &sFrom, const VecOp<T, D, ER> &sTo, T tT)
 	{
-		tT = std::clamp(tT, T(0), T(1));
-
-		return sFrom * (T(1) - tT) + sTo * tT;
+		return sFrom * (T(1) - std::clamp(tT, T(0), T(1))) + sTo * std::clamp(tT, T(0), T(1));
 	}
 }

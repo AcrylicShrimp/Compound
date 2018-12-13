@@ -71,10 +71,7 @@ namespace Compound::Math
 		constexpr typename std::array<T, D>::reverse_iterator rend() noexcept;
 		constexpr typename std::array<T, D>::const_reverse_iterator rend() const noexcept;
 		constexpr typename std::array<T, D>::const_reverse_iterator crend() const noexcept;
-		T sum() const;
-		T magnitude() const;
-		T magnitudeSquare() const;
-		Vec normalized() const;
+		VecOpDivide<T, D, const Vec &, T> normalized() const;
 		static Vec zero();
 		static Vec one();
 		static Vec positiveX();
@@ -87,7 +84,10 @@ namespace Compound::Math
 		template<class EL, class ER> static T dot(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight);
 		template<class EL, class ER> static T distance(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight);
 		template<class EL, class ER> static Vec cross(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight);
-		template<class EL, class ER> static Vec lerp(const VecOp<T, D, EL> &sFrom, const VecOp<T, D, ER> &sTo, T tT);
+		template<class EL, class ER> static decltype(auto) lerp(const VecOp<T, D, EL> &sFrom, const VecOp<T, D, ER> &sTo, T tT);
+		template<class EL, class ER> static VecOpAdd<T, D, const VecOpMultiply<T, D, const EL &&, T> &&, const VecOpMultiply<T, D, const ER &, T> &&> lerp(const VecOp<T, D, EL> &&sFrom, const VecOp<T, D, ER> &sTo, T tT);
+		template<class EL, class ER> static VecOpAdd<T, D, const VecOpMultiply<T, D, const EL &, T> &&, const VecOpMultiply<T, D, const ER &&, T> &&> lerp(const VecOp<T, D, EL> &sFrom, const VecOp<T, D, ER> &&sTo, T tT);
+		template<class EL, class ER> static VecOpAdd<T, D, const VecOpMultiply<T, D, const EL &&, T> &&, const VecOpMultiply<T, D, const ER &&, T> &&> lerp(const VecOp<T, D, EL> &&sFrom, const VecOp<T, D, ER> &&sTo, T tT);
 	};
 }
 

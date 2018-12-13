@@ -13,6 +13,7 @@
 #include <ostream>
 #include <string>
 #include <type_traits>
+#include <utility>
 
 namespace Compound::Math
 {
@@ -33,16 +34,31 @@ namespace Compound::Math
 
 			return tSum;
 		}
+
+		T magnitude() const
+		{
+			return std::sqrt(this->magnitudeSquare());
+		}
+
+		T magnitudeSquare() const
+		{
+			T tSum{0};
+
+			for (std::size_t nIndex{0}; nIndex < D; ++nIndex)
+				tSum += (*this)[nIndex] * (*this)[nIndex];
+
+			return tSum;
+		}
 	};
 
 	template<class T, std::size_t D, class E> class VecOpPlus : public VecOp<T, D, VecOpPlus<T, D, E>>
 	{
 	protected:
-		const E &tE;
+		E tE;
 
 	public:
-		VecOpPlus(const E &tE) :
-			tE(tE)
+		VecOpPlus(E tE) :
+			tE(std::forward<E>(tE))
 		{
 			//Empty.
 		}
@@ -57,11 +73,11 @@ namespace Compound::Math
 	template<class T, std::size_t D, class E> class VecOpMinus : public VecOp<T, D, VecOpMinus<T, D, E>>
 	{
 	protected:
-		const E &tE;
+		E tE;
 
 	public:
-		VecOpMinus(const E &tE) :
-			tE(tE)
+		VecOpMinus(E tE) :
+			tE(std::forward<E>(tE))
 		{
 			//Empty.
 		}
@@ -76,13 +92,13 @@ namespace Compound::Math
 	template<class T, std::size_t D, class EL, class ER> class VecOpAdd : public VecOp<T, D, VecOpAdd<T, D, EL, ER>>
 	{
 	protected:
-		const EL &tEL;
-		const ER &tER;
+		EL tEL;
+		ER tER;
 
 	public:
-		VecOpAdd(const EL &tEL, const ER &tER) :
-			tEL(tEL),
-			tER(tER)
+		VecOpAdd(EL tEL, ER tER) :
+			tEL(std::forward<EL>(tEL)),
+			tER(std::forward<ER>(tER))
 		{
 			//Empty.
 		}
@@ -97,13 +113,13 @@ namespace Compound::Math
 	template<class T, std::size_t D, class EL, class ER> class VecOpSubtract : public VecOp<T, D, VecOpSubtract<T, D, EL, ER>>
 	{
 	protected:
-		const EL &tEL;
-		const ER &tER;
+		EL tEL;
+		ER tER;
 
 	public:
-		VecOpSubtract(const EL &tEL, const ER &tER) :
-			tEL(tEL),
-			tER(tER)
+		VecOpSubtract(EL tEL, ER tER) :
+			tEL(std::forward<EL>(tEL)),
+			tER(std::forward<ER>(tER))
 		{
 			//Empty.
 		}
@@ -123,13 +139,13 @@ namespace Compound::Math
 	template<class T, std::size_t D, class EL, class ER> class VecOpMultiply<T, D, EL, ER, true, false> : public VecOp<T, D, VecOpMultiply<T, D, EL, ER, true, false>>
 	{
 	protected:
-		const EL &tEL;
-		const ER &tER;
+		EL tEL;
+		ER tER;
 
 	public:
-		VecOpMultiply(const EL &tEL, const ER &tER) :
-			tEL(tEL),
-			tER(tER)
+		VecOpMultiply(EL tEL, ER tER) :
+			tEL(std::forward<EL>(tEL)),
+			tER(std::forward<ER>(tER))
 		{
 			//Empty.
 		}
@@ -144,13 +160,13 @@ namespace Compound::Math
 	template<class T, std::size_t D, class EL, class ER> class VecOpMultiply<T, D, EL, ER, false, true> : public VecOp<T, D, VecOpMultiply<T, D, EL, ER, false, true>>
 	{
 	protected:
-		const EL &tEL;
-		const ER &tER;
+		EL tEL;
+		ER tER;
 
 	public:
-		VecOpMultiply(const EL &tEL, const ER &tER) :
-			tEL(tEL),
-			tER(tER)
+		VecOpMultiply(EL tEL, ER tER) :
+			tEL(std::forward<EL>(tEL)),
+			tER(std::forward<ER>(tER))
 		{
 			//Empty.
 		}
@@ -161,17 +177,17 @@ namespace Compound::Math
 			return tEL[nIndex] * tER;
 		}
 	};
-	
+
 	template<class T, std::size_t D, class EL, class ER> class VecOpMultiply<T, D, EL, ER, false, false> : public VecOp<T, D, VecOpMultiply<T, D, EL, ER, false, false>>
 	{
 	protected:
-		const EL &tEL;
-		const ER &tER;
+		EL tEL;
+		ER tER;
 
 	public:
-		VecOpMultiply(const EL &tEL, const ER &tER) :
-			tEL(tEL),
-			tER(tER)
+		VecOpMultiply(EL tEL, ER tER) :
+			tEL(std::forward<EL>(tEL)),
+			tER(std::forward<ER>(tER))
 		{
 			//Empty.
 		}
@@ -191,13 +207,13 @@ namespace Compound::Math
 	template<class T, std::size_t D, class EL, class ER> class VecOpDivide<T, D, EL, ER, true, false> : public VecOp<T, D, VecOpDivide<T, D, EL, ER, true, false>>
 	{
 	protected:
-		const EL &tEL;
-		const ER &tER;
+		EL tEL;
+		ER tER;
 
 	public:
-		VecOpDivide(const EL &tEL, const ER &tER) :
-			tEL(tEL),
-			tER(tER)
+		VecOpDivide(EL tEL, ER tER) :
+			tEL(std::forward<EL>(tEL)),
+			tER(std::forward<ER>(tER))
 		{
 			//Empty.
 		}
@@ -212,13 +228,13 @@ namespace Compound::Math
 	template<class T, std::size_t D, class EL, class ER> class VecOpDivide<T, D, EL, ER, false, true> : public VecOp<T, D, VecOpDivide<T, D, EL, ER, false, true>>
 	{
 	protected:
-		const EL &tEL;
-		const ER &tER;
+		EL tEL;
+		ER tER;
 
 	public:
-		VecOpDivide(const EL &tEL, const ER &tER) :
-			tEL(tEL),
-			tER(T(1) / tER)
+		VecOpDivide(EL tEL, ER tER) :
+			tEL(std::forward<EL>(tEL)),
+			tER(std::forward<ER>(tER))
 		{
 			//Empty.
 		}
@@ -226,20 +242,20 @@ namespace Compound::Math
 	public:
 		T operator[](std::size_t nIndex) const
 		{
-			return tEL[nIndex] * tER;
+			return tEL[nIndex] / tER;
 		}
 	};
 
 	template<class T, std::size_t D, class EL, class ER> class VecOpDivide<T, D, EL, ER, false, false> : public VecOp<T, D, VecOpDivide<T, D, EL, ER, false, false>>
 	{
 	protected:
-		const EL &tEL;
-		const ER &tER;
+		EL tEL;
+		ER tER;
 
 	public:
-		VecOpDivide(const EL &tEL, const ER &tER) :
-			tEL(tEL),
-			tER(tER)
+		VecOpDivide(EL tEL, ER tER) :
+			tEL(std::forward<EL>(tEL)),
+			tER(std::forward<ER>(tER))
 		{
 			//Empty.
 		}
@@ -252,52 +268,142 @@ namespace Compound::Math
 	};
 }
 
-template<class T, std::size_t D, class E> inline Compound::Math::VecOpPlus<T, D, E> operator+(const Compound::Math::VecOp<T, D, E> &sVecOp)
+template<class T, std::size_t D, class E> inline decltype(auto) operator+(const Compound::Math::VecOp<T, D, E> &sVecOp)
+{
+	return Compound::Math::VecOpPlus<T, D, const E &>{static_cast<const E &>(sVecOp)};
+}
+
+template<class T, std::size_t D, class E> inline decltype(auto) operator+(const Compound::Math::VecOp<T, D, E> &&sVecOp)
 {
 	return Compound::Math::VecOpPlus<T, D, E>{static_cast<const E &>(sVecOp)};
 }
 
-template<class T, std::size_t D, class E> inline Compound::Math::VecOpMinus<T, D, E> operator-(const Compound::Math::VecOp<T, D, E> &sVecOp)
+template<class T, std::size_t D, class E> inline decltype(auto) operator-(const Compound::Math::VecOp<T, D, E> &sVecOp)
+{
+	return Compound::Math::VecOpMinus<T, D, const E &>{static_cast<const E &>(sVecOp)};
+}
+
+template<class T, std::size_t D, class E> inline decltype(auto) operator-(const Compound::Math::VecOp<T, D, E> &&sVecOp)
 {
 	return Compound::Math::VecOpMinus<T, D, E>{static_cast<const E &>(sVecOp)};
 }
 
-template<class T, std::size_t D, class EL, class ER> inline Compound::Math::VecOpAdd<T, D, EL, ER> operator+(const Compound::Math::VecOp<T, D, EL> &sVecOpL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator+(const Compound::Math::VecOp<T, D, EL> &sVecOpL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
+{
+	return Compound::Math::VecOpAdd<T, D, const EL &, const ER &>{static_cast<const EL &>(sVecOpL), static_cast<const ER &>(sVecOpR)};
+}
+
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator+(const Compound::Math::VecOp<T, D, EL> &&sVecOpL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
+{
+	return Compound::Math::VecOpAdd<T, D, EL, const ER &>{static_cast<const EL &>(sVecOpL), static_cast<const ER &>(sVecOpR)};
+}
+
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator+(const Compound::Math::VecOp<T, D, EL> &sVecOpL, const Compound::Math::VecOp<T, D, ER> &&sVecOpR)
+{
+	return Compound::Math::VecOpAdd<T, D, const EL &, ER>{static_cast<const EL &>(sVecOpL), static_cast<const ER &>(sVecOpR)};
+}
+
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator+(const Compound::Math::VecOp<T, D, EL> &&sVecOpL, const Compound::Math::VecOp<T, D, ER> &&sVecOpR)
 {
 	return Compound::Math::VecOpAdd<T, D, EL, ER>{static_cast<const EL &>(sVecOpL), static_cast<const ER &>(sVecOpR)};
 }
 
-template<class T, std::size_t D, class EL, class ER> inline Compound::Math::VecOpSubtract<T, D, EL, ER> operator-(const Compound::Math::VecOp<T, D, EL> &sVecOpL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator-(const Compound::Math::VecOp<T, D, EL> &sVecOpL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
+{
+	return Compound::Math::VecOpSubtract<T, D, const EL &, const ER &>{static_cast<const EL &>(sVecOpL), static_cast<const ER &>(sVecOpR)};
+}
+
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator-(const Compound::Math::VecOp<T, D, EL> &&sVecOpL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
+{
+	return Compound::Math::VecOpSubtract<T, D, EL, const ER &>{static_cast<const EL &>(sVecOpL), static_cast<const ER &>(sVecOpR)};
+}
+
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator-(const Compound::Math::VecOp<T, D, EL> &sVecOpL, const Compound::Math::VecOp<T, D, ER> &&sVecOpR)
+{
+	return Compound::Math::VecOpSubtract<T, D, const EL &, ER>{static_cast<const EL &>(sVecOpL), static_cast<const ER &>(sVecOpR)};
+}
+
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator-(const Compound::Math::VecOp<T, D, EL> &&sVecOpL, const Compound::Math::VecOp<T, D, ER> &&sVecOpR)
 {
 	return Compound::Math::VecOpSubtract<T, D, EL, ER>{static_cast<const EL &>(sVecOpL), static_cast<const ER &>(sVecOpR)};
 }
 
-template<class T, std::size_t D, class EL, class ER> inline Compound::Math::VecOpMultiply<T, D, EL, ER> operator*(const EL &tEL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator*(EL tEL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
+{
+	return Compound::Math::VecOpMultiply<T, D, EL, const ER &>{tEL, static_cast<const ER &>(sVecOpR)};
+}
+
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator*(EL tEL, const Compound::Math::VecOp<T, D, ER> &&sVecOpR)
 {
 	return Compound::Math::VecOpMultiply<T, D, EL, ER>{tEL, static_cast<const ER &>(sVecOpR)};
 }
 
-template<class T, std::size_t D, class EL, class ER> inline Compound::Math::VecOpMultiply<T, D, EL, ER> operator*(const Compound::Math::VecOp<T, D, EL> &sVecOpL, const ER &tER)
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator*(const Compound::Math::VecOp<T, D, EL> &sVecOpL, ER tER)
+{
+	return Compound::Math::VecOpMultiply<T, D, const EL &, ER>{static_cast<const EL &>(sVecOpL), tER};
+}
+
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator*(const Compound::Math::VecOp<T, D, EL> &&sVecOpL, ER tER)
 {
 	return Compound::Math::VecOpMultiply<T, D, EL, ER>{static_cast<const EL &>(sVecOpL), tER};
 }
 
-template<class T, std::size_t D, class EL, class ER> inline Compound::Math::VecOpMultiply<T, D, EL, ER> operator*(const Compound::Math::VecOp<T, D, EL> &sVecOpL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator*(const Compound::Math::VecOp<T, D, EL> &sVecOpL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
+{
+	return Compound::Math::VecOpMultiply<T, D, const EL &, const ER &>{static_cast<const EL &>(sVecOpL), static_cast<const ER &>(sVecOpR)};
+}
+
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator*(const Compound::Math::VecOp<T, D, EL> &&sVecOpL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
+{
+	return Compound::Math::VecOpMultiply<T, D, EL, const ER &>{static_cast<const EL &>(sVecOpL), static_cast<const ER &>(sVecOpR)};
+}
+
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator*(const Compound::Math::VecOp<T, D, EL> &sVecOpL, const Compound::Math::VecOp<T, D, ER> &&sVecOpR)
+{
+	return Compound::Math::VecOpMultiply<T, D, const EL &, ER>{static_cast<const EL &>(sVecOpL), static_cast<const ER &>(sVecOpR)};
+}
+
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator*(const Compound::Math::VecOp<T, D, EL> &&sVecOpL, const Compound::Math::VecOp<T, D, ER> &&sVecOpR)
 {
 	return Compound::Math::VecOpMultiply<T, D, EL, ER>{static_cast<const EL &>(sVecOpL), static_cast<const ER &>(sVecOpR)};
 }
 
-template<class T, std::size_t D, class EL, class ER> inline Compound::Math::VecOpDivide<T, D, EL, ER> operator/(const EL &tEL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator/(EL tEL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
+{
+	return Compound::Math::VecOpDivide<T, D, EL, const ER &>{tEL, static_cast<const ER &>(sVecOpR)};
+}
+
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator/(EL tEL, const Compound::Math::VecOp<T, D, ER> &&sVecOpR)
 {
 	return Compound::Math::VecOpDivide<T, D, EL, ER>{tEL, static_cast<const ER &>(sVecOpR)};
 }
 
-template<class T, std::size_t D, class EL, class ER> inline Compound::Math::VecOpDivide<T, D, EL, ER> operator/(const Compound::Math::VecOp<T, D, EL> &sVecOpL, const ER &tER)
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator/(const Compound::Math::VecOp<T, D, EL> &sVecOpL, ER tER)
+{
+	return Compound::Math::VecOpDivide<T, D, const EL &, ER>{static_cast<const EL &>(sVecOpL), tER};
+}
+
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator/(const Compound::Math::VecOp<T, D, EL> &&sVecOpL, ER tER)
 {
 	return Compound::Math::VecOpDivide<T, D, EL, ER>{static_cast<const EL &>(sVecOpL), tER};
 }
 
-template<class T, std::size_t D, class EL, class ER> inline Compound::Math::VecOpDivide<T, D, EL, ER> operator/(const Compound::Math::VecOp<T, D, EL> &sVecOpL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator/(const Compound::Math::VecOp<T, D, EL> &sVecOpL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
+{
+	return Compound::Math::VecOpDivide<T, D, const EL &, const ER &>{static_cast<const EL &>(sVecOpL), static_cast<const ER &>(sVecOpR)};
+}
+
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator/(const Compound::Math::VecOp<T, D, EL> &&sVecOpL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
+{
+	return Compound::Math::VecOpDivide<T, D, EL, const ER &>{static_cast<const EL &>(sVecOpL), static_cast<const ER &>(sVecOpR)};
+}
+
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator/(const Compound::Math::VecOp<T, D, EL> &sVecOpL, const Compound::Math::VecOp<T, D, ER> &&sVecOpR)
+{
+	return Compound::Math::VecOpDivide<T, D, const EL &, ER>{static_cast<const EL &>(sVecOpL), static_cast<const ER &>(sVecOpR)};
+}
+
+template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator/(const Compound::Math::VecOp<T, D, EL> &&sVecOpL, const Compound::Math::VecOp<T, D, ER> &&sVecOpR)
 {
 	return Compound::Math::VecOpDivide<T, D, EL, ER>{static_cast<const EL &>(sVecOpL), static_cast<const ER &>(sVecOpR)};
 }
