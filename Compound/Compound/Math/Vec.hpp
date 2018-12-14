@@ -180,14 +180,14 @@ namespace Compound::Math
 		return false;
 	}
 
-	template<class T, std::size_t D> T &Vec<T, D>::operator[](std::size_t nIndex)
+	template<class T, std::size_t D> inline T &Vec<T, D>::operator[](std::size_t nIndex)
 	{
 		assert(nIndex < D);
 
 		return this->sVec[nIndex];
 	}
 
-	template<class T, std::size_t D> const T &Vec<T, D>::operator[](std::size_t nIndex) const
+	template<class T, std::size_t D> inline const T &Vec<T, D>::operator[](std::size_t nIndex) const
 	{
 		assert(nIndex < D);
 
@@ -254,7 +254,7 @@ namespace Compound::Math
 		return this->sVec.crend();
 	}
 	
-	template<class T, std::size_t D> VecOpDivide<T, D, const Vec<T, D> &, T> Vec<T, D>::normalized() const
+	template<class T, std::size_t D> inline decltype(auto) Vec<T, D>::normalized() const
 	{
 		return *this / this->magnitude();
 	}
@@ -322,24 +322,24 @@ namespace Compound::Math
 		return sZero;
 	}
 
-	template<class T, std::size_t D> template<class EL, class ER> T Vec<T, D>::dot(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight)
+	template<class T, std::size_t D> template<class EL, class ER> inline T Vec<T, D>::dot(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight)
 	{
 		return (sLeft * sRight).sum();
 	}
 
-	template<class T, std::size_t D> template<class EL, class ER> T Vec<T, D>::distance(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight)
+	template<class T, std::size_t D> template<class EL, class ER> inline T Vec<T, D>::distance(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight)
 	{
 		return std::sqrt(((sLeft * sLeft) - (sRight * sRight)).sum());
 	}
 
-	template<class T, std::size_t D> template<class EL, class ER> Vec<T, D> Vec<T, D>::cross(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight)
+	template<class T, std::size_t D> template<class EL, class ER> inline decltype(auto) Vec<T, D>::cross(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight)
 	{
 		static_assert(D == 3);
 
 
 	}
 
-	template<class T, std::size_t D> template<class EL, class ER> decltype(auto) Vec<T, D>::lerp(const VecOp<T, D, EL> &sFrom, const VecOp<T, D, ER> &sTo, T tT)
+	template<class T, std::size_t D> template<class EL, class ER> inline decltype(auto) Vec<T, D>::lerp(const VecOp<T, D, EL> &sFrom, const VecOp<T, D, ER> &sTo, T tT)
 	{
 		return sFrom * (T(1) - std::clamp(tT, T(0), T(1))) + sTo * std::clamp(tT, T(0), T(1));
 	}

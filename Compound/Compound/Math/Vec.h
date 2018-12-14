@@ -15,6 +15,7 @@
 #include <cassert>
 #include <cmath>
 #include <cstddef>
+#include <cstdint>
 #include <initializer_list>
 #include <iterator>
 #include <type_traits>
@@ -55,40 +56,61 @@ namespace Compound::Math
 		template<class E> bool operator==(const VecOp<T, D, E> &sVecOp) const;
 		bool operator!=(std::initializer_list<T> sList) const;
 		template<class E> bool operator!=(const VecOp<T, D, E> &sVecOp) const;
-		T &operator[](std::size_t nIndex);
-		const T &operator[](std::size_t nIndex) const;
+		inline T &operator[](std::size_t nIndex);
+		inline const T &operator[](std::size_t nIndex) const;
 		
 	public:
-		constexpr typename std::array<T, D>::iterator begin() noexcept;
-		constexpr typename std::array<T, D>::const_iterator begin() const noexcept;
-		constexpr typename std::array<T, D>::const_iterator cbegin() const noexcept;
-		constexpr typename std::array<T, D>::reverse_iterator rbegin() noexcept;
-		constexpr typename std::array<T, D>::const_reverse_iterator rbegin() const noexcept;
-		constexpr typename std::array<T, D>::const_reverse_iterator crbegin() const noexcept;
-		constexpr typename std::array<T, D>::iterator end() noexcept;
-		constexpr typename std::array<T, D>::const_iterator end() const noexcept;
-		constexpr typename std::array<T, D>::const_iterator cend() const noexcept;
-		constexpr typename std::array<T, D>::reverse_iterator rend() noexcept;
-		constexpr typename std::array<T, D>::const_reverse_iterator rend() const noexcept;
-		constexpr typename std::array<T, D>::const_reverse_iterator crend() const noexcept;
-		VecOpDivide<T, D, const Vec &, T> normalized() const;
-		static Vec zero();
-		static Vec one();
-		static Vec positiveX();
-		static Vec negativeX();
-		static Vec positiveY();
-		static Vec negativeY();
-		static Vec positiveZ();
-		static Vec negativeZ();
-		static Vec oneHot(std::size_t nIndex);
-		template<class EL, class ER> static T dot(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight);
-		template<class EL, class ER> static T distance(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight);
-		template<class EL, class ER> static Vec cross(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight);
-		template<class EL, class ER> static decltype(auto) lerp(const VecOp<T, D, EL> &sFrom, const VecOp<T, D, ER> &sTo, T tT);
-		template<class EL, class ER> static VecOpAdd<T, D, const VecOpMultiply<T, D, const EL &&, T> &&, const VecOpMultiply<T, D, const ER &, T> &&> lerp(const VecOp<T, D, EL> &&sFrom, const VecOp<T, D, ER> &sTo, T tT);
-		template<class EL, class ER> static VecOpAdd<T, D, const VecOpMultiply<T, D, const EL &, T> &&, const VecOpMultiply<T, D, const ER &&, T> &&> lerp(const VecOp<T, D, EL> &sFrom, const VecOp<T, D, ER> &&sTo, T tT);
-		template<class EL, class ER> static VecOpAdd<T, D, const VecOpMultiply<T, D, const EL &&, T> &&, const VecOpMultiply<T, D, const ER &&, T> &&> lerp(const VecOp<T, D, EL> &&sFrom, const VecOp<T, D, ER> &&sTo, T tT);
+		inline constexpr typename std::array<T, D>::iterator begin() noexcept;
+		inline constexpr typename std::array<T, D>::const_iterator begin() const noexcept;
+		inline constexpr typename std::array<T, D>::const_iterator cbegin() const noexcept;
+		inline constexpr typename std::array<T, D>::reverse_iterator rbegin() noexcept;
+		inline constexpr typename std::array<T, D>::const_reverse_iterator rbegin() const noexcept;
+		inline constexpr typename std::array<T, D>::const_reverse_iterator crbegin() const noexcept;
+		inline constexpr typename std::array<T, D>::iterator end() noexcept;
+		inline constexpr typename std::array<T, D>::const_iterator end() const noexcept;
+		inline constexpr typename std::array<T, D>::const_iterator cend() const noexcept;
+		inline constexpr typename std::array<T, D>::reverse_iterator rend() noexcept;
+		inline constexpr typename std::array<T, D>::const_reverse_iterator rend() const noexcept;
+		inline constexpr typename std::array<T, D>::const_reverse_iterator crend() const noexcept;
+		inline decltype(auto) normalized() const;
+		static inline Vec zero();
+		static inline Vec one();
+		static inline Vec positiveX();
+		static inline Vec negativeX();
+		static inline Vec positiveY();
+		static inline Vec negativeY();
+		static inline Vec positiveZ();
+		static inline Vec negativeZ();
+		static inline Vec oneHot(std::size_t nIndex);
+		template<class EL, class ER> static inline T dot(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight);
+		template<class EL, class ER> static inline T distance(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight);
+		template<class EL, class ER> static inline decltype(auto) cross(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight);
+		template<class EL, class ER> static inline decltype(auto) lerp(const VecOp<T, D, EL> &sFrom, const VecOp<T, D, ER> &sTo, T tT);
+		template<class EL, class ER> static inline decltype(auto) lerp(const VecOp<T, D, EL> &&sFrom, const VecOp<T, D, ER> &sTo, T tT);
+		template<class EL, class ER> static inline decltype(auto) lerp(const VecOp<T, D, EL> &sFrom, const VecOp<T, D, ER> &&sTo, T tT);
+		template<class EL, class ER> static inline decltype(auto) lerp(const VecOp<T, D, EL> &&sFrom, const VecOp<T, D, ER> &&sTo, T tT);
 	};
+
+	using bvec1 = Vec<bool, 1>;
+	using bvec2 = Vec<bool, 2>;
+	using bvec3 = Vec<bool, 3>;
+	using bvec4 = Vec<bool, 4>;
+	using ivec1 = Vec<std::int32_t, 1>;
+	using ivec2 = Vec<std::int32_t, 2>;
+	using ivec3 = Vec<std::int32_t, 3>;
+	using ivec4 = Vec<std::int32_t, 4>;
+	using uvec1 = Vec<std::uint32_t, 1>;
+	using uvec2 = Vec<std::uint32_t, 2>;
+	using uvec3 = Vec<std::uint32_t, 3>;
+	using uvec4 = Vec<std::uint32_t, 4>;
+	using vec1 = Vec<float, 1>;
+	using vec2 = Vec<float, 2>;
+	using vec3 = Vec<float, 3>;
+	using vec4 = Vec<float, 4>;
+	using dvec1 = Vec<double, 1>;
+	using dvec2 = Vec<double, 2>;
+	using dvec3 = Vec<double, 3>;
+	using dvec4 = Vec<double, 4>;
 }
 
 #include "Vec.hpp"

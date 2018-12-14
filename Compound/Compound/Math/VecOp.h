@@ -328,22 +328,22 @@ template<class T, std::size_t D, class EL, class ER> inline decltype(auto) opera
 	return Compound::Math::VecOpSubtract<T, D, EL, ER>{static_cast<const EL &>(sVecOpL), static_cast<const ER &>(sVecOpR)};
 }
 
-template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator*(EL tEL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
+template<class T, std::size_t D, class EL, class ER, class Arithmetic = std::enable_if_t<std::is_arithmetic_v<EL>>> inline decltype(auto) operator*(EL tEL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
 {
 	return Compound::Math::VecOpMultiply<T, D, EL, const ER &>{tEL, static_cast<const ER &>(sVecOpR)};
 }
 
-template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator*(EL tEL, const Compound::Math::VecOp<T, D, ER> &&sVecOpR)
+template<class T, std::size_t D, class EL, class ER, class Arithmetic = std::enable_if_t<std::is_arithmetic_v<EL>>> inline decltype(auto) operator*(EL tEL, const Compound::Math::VecOp<T, D, ER> &&sVecOpR)
 {
 	return Compound::Math::VecOpMultiply<T, D, EL, ER>{tEL, static_cast<const ER &>(sVecOpR)};
 }
 
-template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator*(const Compound::Math::VecOp<T, D, EL> &sVecOpL, ER tER)
+template<class T, std::size_t D, class EL, class ER, class Arithmetic = std::enable_if_t<std::is_arithmetic_v<ER>>> inline decltype(auto) operator*(const Compound::Math::VecOp<T, D, EL> &sVecOpL, ER tER)
 {
 	return Compound::Math::VecOpMultiply<T, D, const EL &, ER>{static_cast<const EL &>(sVecOpL), tER};
 }
 
-template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator*(const Compound::Math::VecOp<T, D, EL> &&sVecOpL, ER tER)
+template<class T, std::size_t D, class EL, class ER, class Arithmetic = std::enable_if_t<std::is_arithmetic_v<ER>>> inline decltype(auto) operator*(const Compound::Math::VecOp<T, D, EL> &&sVecOpL, ER tER)
 {
 	return Compound::Math::VecOpMultiply<T, D, EL, ER>{static_cast<const EL &>(sVecOpL), tER};
 }
@@ -368,22 +368,22 @@ template<class T, std::size_t D, class EL, class ER> inline decltype(auto) opera
 	return Compound::Math::VecOpMultiply<T, D, EL, ER>{static_cast<const EL &>(sVecOpL), static_cast<const ER &>(sVecOpR)};
 }
 
-template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator/(EL tEL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
+template<class T, std::size_t D, class EL, class ER, class Arithmetic = std::enable_if_t<std::is_arithmetic_v<EL>>> inline decltype(auto) operator/(EL tEL, const Compound::Math::VecOp<T, D, ER> &sVecOpR)
 {
 	return Compound::Math::VecOpDivide<T, D, EL, const ER &>{tEL, static_cast<const ER &>(sVecOpR)};
 }
 
-template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator/(EL tEL, const Compound::Math::VecOp<T, D, ER> &&sVecOpR)
+template<class T, std::size_t D, class EL, class ER, class Arithmetic = std::enable_if_t<std::is_arithmetic_v<EL>>> inline decltype(auto) operator/(EL tEL, const Compound::Math::VecOp<T, D, ER> &&sVecOpR)
 {
 	return Compound::Math::VecOpDivide<T, D, EL, ER>{tEL, static_cast<const ER &>(sVecOpR)};
 }
 
-template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator/(const Compound::Math::VecOp<T, D, EL> &sVecOpL, ER tER)
+template<class T, std::size_t D, class EL, class ER, class Arithmetic = std::enable_if_t<std::is_arithmetic_v<ER>>> inline decltype(auto) operator/(const Compound::Math::VecOp<T, D, EL> &sVecOpL, ER tER)
 {
 	return Compound::Math::VecOpDivide<T, D, const EL &, ER>{static_cast<const EL &>(sVecOpL), tER};
 }
 
-template<class T, std::size_t D, class EL, class ER> inline decltype(auto) operator/(const Compound::Math::VecOp<T, D, EL> &&sVecOpL, ER tER)
+template<class T, std::size_t D, class EL, class ER, class Arithmetic = std::enable_if_t<std::is_arithmetic_v<ER>>> inline decltype(auto) operator/(const Compound::Math::VecOp<T, D, EL> &&sVecOpL, ER tER)
 {
 	return Compound::Math::VecOpDivide<T, D, EL, ER>{static_cast<const EL &>(sVecOpL), tER};
 }
