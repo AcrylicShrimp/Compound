@@ -10,6 +10,7 @@
 
 #include "Component.h"
 #include "ComponentType.h"
+#include "../ManagerBase.h"
 
 #include <functional>
 #include <memory>
@@ -21,17 +22,22 @@
 #include <unordered_map>
 #include <utility>
 
+namespace Compound
+{
+	class Instance;
+}
+
 namespace Compound::Core
 {
 	class Object;
 
-	class ComponentManager
+	class ComponentManager final : public ManagerBase
 	{
 	private:
 		std::unordered_map<std::string, ComponentType> sTypeMap;
 
 	public:
-		ComponentManager();
+		ComponentManager(Instance *pInstance);
 		ComponentManager(const ComponentManager &sSrc) = delete;
 		~ComponentManager() = default;
 		
@@ -40,6 +46,8 @@ namespace Compound::Core
 		
 	public:
 		inline const ComponentType *type(std::string_view sTypeName) const;
+		virtual void initialize() override;
+		virtual void finalize() override;
 		template<class T> inline const ComponentType *type() const;
 		template<class T> inline void registerComponent();
 		template<class T, class B> inline void registerComponent();

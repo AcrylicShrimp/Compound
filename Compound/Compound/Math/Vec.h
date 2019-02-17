@@ -84,11 +84,8 @@ namespace Compound::Math
 		static inline Vec oneHot(std::size_t nIndex);
 		template<class EL, class ER> static inline T dot(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight);
 		template<class EL, class ER> static inline T distance(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight);
-		template<class EL, class ER> static inline decltype(auto) cross(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight);
 		template<class EL, class ER> static inline decltype(auto) lerp(const VecOp<T, D, EL> &sFrom, const VecOp<T, D, ER> &sTo, T tT);
-		template<class EL, class ER> static inline decltype(auto) lerp(const VecOp<T, D, EL> &&sFrom, const VecOp<T, D, ER> &sTo, T tT);
-		template<class EL, class ER> static inline decltype(auto) lerp(const VecOp<T, D, EL> &sFrom, const VecOp<T, D, ER> &&sTo, T tT);
-		template<class EL, class ER> static inline decltype(auto) lerp(const VecOp<T, D, EL> &&sFrom, const VecOp<T, D, ER> &&sTo, T tT);
+		template<class EL, class ER, class Enabled = std::enable_if_t<D == 3>> static inline decltype(auto) cross(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight);
 	};
 
 	using bvec1 = Vec<bool, 1>;

@@ -8,10 +8,10 @@
 
 #define _CLASS_COMPOUND_CORE_OBJECT_H
 
+#include "../Instance.h"
 #include "Component.h"
 #include "ComponentManager.h"
 #include "ComponentType.h"
-#include "Instance.h"
 
 #include <iterator>
 #include <memory>
@@ -68,21 +68,21 @@ namespace Compound::Core
 	{
 		static_assert(std::is_base_of<Component, T>());
 
-		return static_cast<T *>(this->component(this->pInstance->componentManager().type<T>()));
+		return static_cast<T *>(this->component(this->pInstance->sComponentManager.type<T>()));
 	}
 
 	template<class T> inline const T *Object::component() const
 	{
 		static_assert(std::is_base_of<Component, T>());
 
-		return static_cast<T *>(this->component(this->pInstance->componentManager().type<T>()));
+		return static_cast<T *>(this->component(this->pInstance->sComponentManager.type<T>()));
 	}
 
 	template<class T> inline std::vector<T *> Object::componentAll()
 	{
 		static_assert(std::is_base_of<Component, T>());
 
-		const auto *pComponentType{this->pInstance->componentManager().type<T>()};
+		const auto *pComponentType{this->pInstance->sComponentManager.type<T>()};
 
 		if (!pComponentType)
 			return {};
@@ -102,7 +102,7 @@ namespace Compound::Core
 	{
 		static_assert(std::is_base_of<Component, T>());
 
-		const auto *pComponentType{this->pInstance->componentManager().type<T>()};
+		const auto *pComponentType{this->pInstance->sComponentManager.type<T>()};
 
 		if (!pComponentType)
 			return {};
@@ -122,7 +122,7 @@ namespace Compound::Core
 	{
 		static_assert(std::is_base_of<Component, T>());
 
-		return static_cast<T *>(this->addComponent(this->pInstance->componentManager().type<T>()));
+		return static_cast<T *>(this->addComponent(this->pInstance->sComponentManager.type<T>()));
 	}
 }
 

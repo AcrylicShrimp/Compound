@@ -83,7 +83,11 @@
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
       <AssemblerOutput>NoListing</AssemblerOutput>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
+    <Link>
+      <SubSystem>NotSet</SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -94,7 +98,11 @@
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
       <AssemblerOutput>NoListing</AssemblerOutput>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
+    <Link>
+      <SubSystem>NotSet</SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -112,11 +120,13 @@
       <DebugInformationFormat>None</DebugInformationFormat>
       <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
       <AssemblerOutput>NoListing</AssemblerOutput>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>NotSet</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -135,20 +145,29 @@
       <DebugInformationFormat>None</DebugInformationFormat>
       <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
       <AssemblerOutput>NoListing</AssemblerOutput>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>NotSet</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Compound\Core\Component.cpp" />
     <ClCompile Include="Compound\Core\ComponentManager.cpp" />
     <ClCompile Include="Compound\Core\ComponentType.cpp" />
-    <ClCompile Include="Compound\Core\Instance.cpp" />
     <ClCompile Include="Compound\Core\Object.cpp" />
+    <ClCompile Include="Compound\Display\DisplayManager.cpp" />
+    <ClCompile Include="Compound\Display\Window.cpp" />
+    <ClCompile Include="Compound\Display\__Windows_Window.cpp" />
+    <ClCompile Include="Compound\Instance.cpp" />
     <ClCompile Include="Compound\IO\JSONObject.cpp" />
+    <ClCompile Include="Compound\ManagerBase.cpp" />
+    <ClCompile Include="Compound\Render\Data\IndexData.cpp" />
+    <ClCompile Include="Compound\Render\Data\Mesh.cpp" />
+    <ClCompile Include="Compound\Render\Data\ShaderData.cpp" />
     <ClCompile Include="Compound\Render\ShaderLayout.cpp" />
     <ClCompile Include="Run.cpp" />
     <ClCompile Include="TestConsoleLogger.cpp" />
@@ -159,14 +178,20 @@
     <ClInclude Include="Compound\Core\Component.h" />
     <ClInclude Include="Compound\Core\ComponentManager.h" />
     <ClInclude Include="Compound\Core\ComponentType.h" />
-    <ClInclude Include="Compound\Core\Instance.h" />
     <ClInclude Include="Compound\Core\Object.h" />
+    <ClInclude Include="Compound\Display\DisplayManager.h" />
+    <ClInclude Include="Compound\Display\Window.h" />
+    <ClInclude Include="Compound\Display\__Windows_Window.h" />
+    <ClInclude Include="Compound\Instance.h" />
     <ClInclude Include="Compound\IO\JSONObject.h" />
     <ClInclude Include="Compound\IO\JSONSerializable.h" />
+    <ClInclude Include="Compound\ManagerBase.h" />
     <ClInclude Include="Compound\Math\Vec.h" />
     <ClInclude Include="Compound\Math\Vec.hpp" />
     <ClInclude Include="Compound\Math\VecOp.h" />
-    <ClInclude Include="Compound\Render\Mesh.h" />
+    <ClInclude Include="Compound\Render\Data\IndexData.h" />
+    <ClInclude Include="Compound\Render\Data\Mesh.h" />
+    <ClInclude Include="Compound\Render\Data\ShaderData.h" />
     <ClInclude Include="Compound\Render\ShaderLayout.h" />
     <ClInclude Include="TestConsoleLogger.h" />
     <ClInclude Include="TestFileLogger.h" />

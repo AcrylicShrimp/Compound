@@ -332,15 +332,20 @@ namespace Compound::Math
 		return std::sqrt(((sLeft * sLeft) - (sRight * sRight)).sum());
 	}
 
-	template<class T, std::size_t D> template<class EL, class ER> inline decltype(auto) Vec<T, D>::cross(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight)
+	template<class T, std::size_t D> template<class EL, class ER> inline decltype(auto) Vec<T, D>::lerp(const VecOp<T, D, EL> &sFrom, const VecOp<T, D, ER> &sTo, T tT)
+	{
+		return Vec<T, D>{sFrom * (T(1) - std::clamp(tT, T(0), T(1))) + sTo * std::clamp(tT, T(0), T(1))};
+	}
+
+	template<class T, std::size_t D> template<class EL, class ER, class Enabled> inline decltype(auto) Vec<T, D>::cross(const VecOp<T, D, EL> &sLeft, const VecOp<T, D, ER> &sRight)
 	{
 		static_assert(D == 3);
 
-
-	}
-
-	template<class T, std::size_t D> template<class EL, class ER> inline decltype(auto) Vec<T, D>::lerp(const VecOp<T, D, EL> &sFrom, const VecOp<T, D, ER> &sTo, T tT)
-	{
-		return sFrom * (T(1) - std::clamp(tT, T(0), T(1))) + sTo * std::clamp(tT, T(0), T(1));
+		return Vec<T, D>
+		{
+			sLeft[1] * sRight[2] - sLeft[2] * sRight[1],
+			sLeft[2] * sRight[0] - sLeft[0] * sRight[2],
+			sLeft[0] * sRight[1] - sLeft[1] * sRight[0]
+		};
 	}
 }

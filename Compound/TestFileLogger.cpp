@@ -19,7 +19,7 @@ void TestFileLogger::log(std::string_view sMessage)
 
 const Compound::Core::ComponentType *TestFileLogger::type() const
 {
-	return this->pObject->instance()->componentManager().type<TestFileLogger>();
+	return this->pObject->instance()->sComponentManager.type<TestFileLogger>();
 }
 
 std::string_view TestFileLogger::typeName()

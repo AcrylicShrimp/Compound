@@ -19,7 +19,7 @@ void TestConsoleLogger::log(std::string_view sMessage)
 
 const Compound::Core::ComponentType *TestConsoleLogger::type() const
 {
-	return this->pObject->instance()->componentManager().type<TestConsoleLogger>();
+	return this->pObject->instance()->sComponentManager.type<TestConsoleLogger>();
 }
 
 std::string_view TestConsoleLogger::typeName()

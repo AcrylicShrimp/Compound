@@ -6,9 +6,7 @@
 
 #include "Component.h"
 
-#include "Instance.h"
-#include "ComponentManager.h"
-#include "ComponentType.h"
+#include "../Instance.h"
 #include "Object.h"
 
 namespace Compound::Core
@@ -21,7 +19,7 @@ namespace Compound::Core
 
 	const ComponentType *Component::type() const
 	{
-		return this->pObject->instance()->componentManager().type<Component>();
+		return this->pObject->instance()->sComponentManager.type<Component>();
 	}
 
 	std::string_view Component::typeName()
