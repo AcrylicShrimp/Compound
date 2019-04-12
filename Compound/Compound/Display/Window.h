@@ -80,6 +80,7 @@ namespace Compound::Display
 		virtual void destroy() = 0;
 		virtual void loopEvent() = 0;
 		virtual void loopEventAvailable() = 0;
+		virtual void setTitle(std::wstring_view sTitle) = 0;
 		virtual void setVisibility(Visibility eVisibility) = 0;
 	};
 

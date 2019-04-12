@@ -144,6 +144,11 @@ namespace Compound::Display
 		}
 	}
 
+	void __Windows_Window::setTitle(std::wstring_view sTitle)
+	{
+		::SetWindowTextW(this->hWindow, sTitle.data());
+	}
+
 	void __Windows_Window::setVisibility(Visibility eVisibility)
 	{
 		int nVisibility;

@@ -49,6 +49,7 @@ namespace Compound::Display
 		virtual void destroy() override;
 		virtual void loopEvent() override;
 		virtual void loopEventAvailable() override;
+		virtual void setTitle(std::wstring_view sTitle) override;
 		virtual void setVisibility(Visibility eVisibility) override;
 		std::tuple<bool, LRESULT> handleEvent(UINT nMessage, WPARAM nWParam, LPARAM nLParam);
 
