@@ -36,6 +36,17 @@ namespace Compound::Display
 		return this->sWindowMap.emplace(std::string{sId}, std::unique_ptr<Window>{new WindowType{this->pInstance, sId}}).first->second.get();
 	}
 
+	void DisplayManager::destroyWindow(std::string_view sId)
+	{
+		auto pWindow{this->getWindow(sId)};
+
+		if (!pWindow)
+			return;
+
+		this->pInstance->sRenderManager.destroyContext(pWindow);
+		this->sWindowMap.erase(std::string{sId});
+	}
+
 	Window *DisplayManager::getWindow(std::string_view sId)
 	{
 		auto iIndex{this->sWindowMap.find(std::string{sId})};

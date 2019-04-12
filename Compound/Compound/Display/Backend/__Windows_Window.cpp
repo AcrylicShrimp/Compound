@@ -4,14 +4,16 @@
 	Created by AcrylicShrimp.
 */
 
-#ifdef _MSC_VER
+#include "../../Platform.h"
 
-#include "Window.h"
+#ifdef __COMPOUND_OS_WINDOWS
+
+#include "../Window.h"
 #include "__Windows_Window.h"
 
-#include "../Instance.h"
+#include "../../Instance.h"
 
-namespace Compound::Display
+namespace Compound::Display::Backend
 {
 	std::unordered_map<HWND, __Windows_Window *> __Windows_Window::sWindowPointerMap;
 
@@ -20,6 +22,11 @@ namespace Compound::Display
 		hWindow{nullptr}
 	{
 		//Empty.
+	}
+
+	__Windows_Window::~__Windows_Window() noexcept
+	{
+		this->destroy();
 	}
 
 	bool __Windows_Window::create(Style eStyle, std::wstring_view sTitle)
@@ -59,7 +66,7 @@ namespace Compound::Display
 		/*
 			FIXME : Generate class name more nicely here.
 		*/
-		auto sClassName{this->pInstance->sApplicationName + L"::" + std::wstring{this->sId.cbegin(), this->sId.cend()}};
+		const auto sClassName{this->pInstance->sApplicationName + L"::" + std::wstring{this->sId.cbegin(), this->sId.cend()}};
 
 		WNDCLASSW sClass
 		{
@@ -106,7 +113,7 @@ namespace Compound::Display
 
 	void __Windows_Window::destroy()
 	{
-		auto sClassName{this->pInstance->sApplicationName + L"::" + std::wstring{this->sId.cbegin(), this->sId.cend()}};
+		const auto sClassName{this->pInstance->sApplicationName + L"::" + std::wstring{this->sId.cbegin(), this->sId.cend()}};
 
 		::UnregisterClassW(sClassName.c_str(), ::GetModuleHandleW(nullptr));
 		::DestroyWindow(this->hWindow);

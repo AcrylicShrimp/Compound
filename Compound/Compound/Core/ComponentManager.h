@@ -37,9 +37,9 @@ namespace Compound::Core
 		std::unordered_map<std::string, ComponentType> sTypeMap;
 
 	public:
-		ComponentManager(Instance *pInstance);
+		ComponentManager(Instance *pInstance) noexcept;
 		ComponentManager(const ComponentManager &sSrc) = delete;
-		~ComponentManager() = default;
+		~ComponentManager() noexcept = default;
 		
 	public:
 		ComponentManager &operator=(const ComponentManager &sSrc) = delete;

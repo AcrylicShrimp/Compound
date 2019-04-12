@@ -8,6 +8,8 @@
 
 #define _CLASS_COMPOUND_CORE_MANAGERBASE_H
 
+#include <cassert>
+
 namespace Compound
 {
 	class Instance;
@@ -18,12 +20,12 @@ namespace Compound
 		Instance *const pInstance;
 		
 	public:
-		ManagerBase(Instance *pInstance);
-		ManagerBase(const ManagerBase &sSrc) = default;
-		~ManagerBase() = default;
+		ManagerBase(Instance *pInstance) noexcept;
+		ManagerBase(const ManagerBase &sSrc) noexcept = default;
+		~ManagerBase() noexcept = default;
 		
 	public:
-		ManagerBase &operator=(const ManagerBase &sSrc) = default;
+		ManagerBase &operator=(const ManagerBase &sSrc) noexcept = default;
 		
 	public:
 		virtual void initialize() = 0;

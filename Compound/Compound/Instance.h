@@ -9,7 +9,10 @@
 #define _CLASS_COMPOUND_CORE_INSTANCE_H
 
 #include "./Core/ComponentManager.h"
+
 #include "./Display/DisplayManager.h"
+
+#include "./Render/RenderManager.h"
 
 #include <string>
 #include <string_view>
@@ -22,11 +25,12 @@ namespace Compound
 		const std::wstring sApplicationName;
 		Core::ComponentManager sComponentManager;
 		Display::DisplayManager sDisplayManager;
+		Render::RenderManager sRenderManager;
 
 	public:
 		Instance(std::wstring_view sApplicationName);
 		Instance(const Instance &sSrc) = delete;
-		~Instance() = default;
+		~Instance();
 		
 	public:
 		Instance &operator=(const Instance &sSrc) = delete;

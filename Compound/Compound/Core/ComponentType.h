@@ -30,15 +30,15 @@ namespace Compound::Core
 		ComponentType(const ComponentType *pBaseType, std::string_view sTypeName);
 		ComponentType(const ComponentType *pBaseType, std::string_view sTypeName, std::function<std::unique_ptr<Component>(Object *)> fConstructor);
 		ComponentType(const ComponentType &sSrc) = delete;
-		~ComponentType() = default;
+		~ComponentType() noexcept = default;
 		
 	public:
 		ComponentType &operator=(const ComponentType &sSrc) = delete;
 		bool operator==(const ComponentType &sRight) const;
 		
 	public:
-		inline std::string_view typeName() const;
-		inline const ComponentType *baseType() const;
+		inline std::string_view typeName() const noexcept;
+		inline const ComponentType *baseType() const noexcept;
 		bool isBaseOf(const ComponentType *pDerivedType) const;
 		bool isDerivatedFrom(const ComponentType *pBaseType) const;
 		bool isExactlyBaseOf(const ComponentType *pDerivedType) const;
@@ -50,12 +50,12 @@ namespace Compound::Core
 		static bool isExactlyBaseOf(const ComponentType *pBaseType, const ComponentType *pDerivedType);
 	};
 
-	inline std::string_view ComponentType::typeName() const
+	inline std::string_view ComponentType::typeName() const noexcept
 	{
 		return this->sTypeName;
 	}
 
-	inline const ComponentType *ComponentType::baseType() const
+	inline const ComponentType *ComponentType::baseType() const noexcept
 	{
 		return this->pBaseType;
 	}

@@ -22,6 +22,18 @@
     <Filter Include="Compound\Display">
       <UniqueIdentifier>{2d8f37ba-0b60-4a73-a391-b953754edefc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Compound\Display\Backend">
+      <UniqueIdentifier>{f02cb0f7-de5c-4b75-9cbb-ae8c446a9aea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Compound\Render\Backend">
+      <UniqueIdentifier>{a509ceef-22f2-462c-b7a8-5871905b2798}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenGL">
+      <UniqueIdentifier>{60557096-35ac-4bd7-90ec-f09a944f1043}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenGL\KHR">
+      <UniqueIdentifier>{90ca04b6-b8ac-49c9-b7ef-b3ef5fe0fafc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Run.cpp" />
@@ -58,9 +70,6 @@
     <ClCompile Include="Compound\Display\DisplayManager.cpp">
       <Filter>Compound\Display</Filter>
     </ClCompile>
-    <ClCompile Include="Compound\Display\__Windows_Window.cpp">
-      <Filter>Compound\Display</Filter>
-    </ClCompile>
     <ClCompile Include="Compound\Display\Window.cpp">
       <Filter>Compound\Display</Filter>
     </ClCompile>
@@ -69,6 +78,18 @@
     </ClCompile>
     <ClCompile Include="Compound\ManagerBase.cpp">
       <Filter>Compound</Filter>
+    </ClCompile>
+    <ClCompile Include="Compound\Render\Context.cpp">
+      <Filter>Compound\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Compound\Render\RenderManager.cpp">
+      <Filter>Compound\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Compound\Display\Backend\__Windows_Window.cpp">
+      <Filter>Compound\Display\Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="Compound\Render\Backend\__OpenGLContext.cpp">
+      <Filter>Compound\Render\Backend</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -120,14 +141,41 @@
     <ClInclude Include="Compound\Display\Window.h">
       <Filter>Compound\Display</Filter>
     </ClInclude>
-    <ClInclude Include="Compound\Display\__Windows_Window.h">
-      <Filter>Compound\Display</Filter>
-    </ClInclude>
     <ClInclude Include="Compound\Instance.h">
       <Filter>Compound</Filter>
     </ClInclude>
     <ClInclude Include="Compound\ManagerBase.h">
       <Filter>Compound</Filter>
+    </ClInclude>
+    <ClInclude Include="Compound\Render\Context.h">
+      <Filter>Compound\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Compound\Render\RenderManager.h">
+      <Filter>Compound\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Compound\Platform.h">
+      <Filter>Compound</Filter>
+    </ClInclude>
+    <ClInclude Include="Compound\Display\Backend\__Windows_Window.h">
+      <Filter>Compound\Display\Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="Compound\Render\Backend\__OpenGLContext.h">
+      <Filter>Compound\Render\Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\glcorearb.h">
+      <Filter>OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\glext.h">
+      <Filter>OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\glxext.h">
+      <Filter>OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\wglext.h">
+      <Filter>OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\KHR\khrplatform.h">
+      <Filter>OpenGL\KHR</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
