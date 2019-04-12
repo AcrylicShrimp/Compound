@@ -40,13 +40,6 @@ namespace Compound::Display
 			VisibleMaximized
 		};
 
-		struct GraphicInfo
-		{
-			std::uint8_t nColorBit;
-			std::uint8_t nDepthBit;
-			std::uint8_t nStencilBit;
-		};
-
 		struct CoordinateInfo
 		{
 			std::int32_t nMinX;
@@ -60,22 +53,20 @@ namespace Compound::Display
 		const std::string sId;
 
 	protected:
-		GraphicInfo sGraphicInfo;
 		CoordinateInfo sOuterCoordinateInfo;
 		CoordinateInfo sInnerCoordinateInfo;
 
 	public:
 		Window(Instance *pInstance, std::string_view sId);
 		Window(const Window &sSrc) = delete;
-		virtual ~Window() = default;
+		virtual ~Window() noexcept = default;
 
 	public:
 		Window &operator=(const Window &sSrc) = delete;
 
 	public:
-		inline const GraphicInfo &graphicInfo() const;
-		inline const CoordinateInfo &outerCoordinateInfo() const;
-		inline const CoordinateInfo &innerCoordinateInfo() const;
+		inline const CoordinateInfo &outerCoordinateInfo() const noexcept;
+		inline const CoordinateInfo &innerCoordinateInfo() const noexcept;
 		virtual bool create(Style eStyle, std::wstring_view sTitle) = 0;
 		virtual void destroy() = 0;
 		virtual void loopEvent() = 0;
@@ -84,27 +75,22 @@ namespace Compound::Display
 		virtual void setVisibility(Visibility eVisibility) = 0;
 	};
 
-	inline const Window::GraphicInfo &Window::graphicInfo() const
-	{
-		return this->sGraphicInfo;
-	}
-
-	inline const Window::CoordinateInfo &Window::outerCoordinateInfo() const
+	inline const Window::CoordinateInfo &Window::outerCoordinateInfo() const noexcept
 	{
 		return this->sOuterCoordinateInfo;
 	}
 
-	inline const Window::CoordinateInfo &Window::innerCoordinateInfo() const
+	inline const Window::CoordinateInfo &Window::innerCoordinateInfo() const noexcept
 	{
 		return this->sInnerCoordinateInfo;
 	}
 }
 
-#include "__Windows_Window.h"
+#include "./Backend/__Windows_Window.h"
 
-#ifndef __COMPOUND__WINDOW_SUPPORTED
+#if !__COMPOUND_WINDOW_SUPPORTED
 
-static_assert(false, "Unsupported environment.");
+static_assert(false, "unsupported environment.");
 
 #endif
 

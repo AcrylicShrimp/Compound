@@ -4,13 +4,15 @@
 	Created by AcrylicShrimp.
 */
 
-#ifdef _MSC_VER
+#include "../../Platform.h"
 
-#ifndef _CLASS_COMPOUND_DISPLAY_WINDOWS_WINDOW_H
+#if __COMPOUND_OS_WINDOWS
 
-#define _CLASS_COMPOUND_DISPLAY_WINDOWS_WINDOW_H
+#ifndef _CLASS_COMPOUND_DISPLAY_BACKEND_WINDOWS_WINDOW_H
 
-#define __COMPOUND__WINDOW_SUPPORTED
+#define _CLASS_COMPOUND_DISPLAY_BACKEND_WINDOWS_WINDOW_H
+
+#define __COMPOUND_WINDOW_SUPPORTED 1
 
 #include <cstddef>
 #include <cstdint>
@@ -26,7 +28,7 @@ namespace Compound
 	class Instance;
 }
 
-namespace Compound::Display
+namespace Compound::Display::Backend
 {
 	class __Windows_Window final : public Window
 	{
@@ -39,12 +41,13 @@ namespace Compound::Display
 	public:
 		__Windows_Window(Instance *pInstance, std::string_view sId);
 		__Windows_Window(const __Windows_Window &sSrc) = delete;
-		virtual ~__Windows_Window() = default;
+		virtual ~__Windows_Window() noexcept;
 
 	public:
 		__Windows_Window &operator=(const __Windows_Window &sSrc) = delete;
 
 	public:
+		inline HWND windowHandle() const;
 		virtual bool create(Style eStyle, std::wstring_view sTitle) override;
 		virtual void destroy() override;
 		virtual void loopEvent() override;
@@ -57,7 +60,15 @@ namespace Compound::Display
 		static LRESULT CALLBACK handleEvent(HWND hWindow, UINT nMessage, WPARAM nWParam, LPARAM nLParam);
 	};
 
-	using WindowType = __Windows_Window;
+	inline HWND __Windows_Window::windowHandle() const
+	{
+		return this->hWindow;
+	}
+}
+
+namespace Compound::Display
+{
+	using WindowType = Backend::__Windows_Window;
 }
 
 #endif

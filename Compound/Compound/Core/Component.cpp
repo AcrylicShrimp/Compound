@@ -22,7 +22,7 @@ namespace Compound::Core
 		return this->pObject->instance()->sComponentManager.type<Component>();
 	}
 
-	std::string_view Component::typeName()
+	std::string_view Component::typeName() noexcept
 	{
 		return "Component";
 	}

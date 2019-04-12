@@ -59,18 +59,22 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\Compound.props" />
+    <Import Project="..\OpenGL Import.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\Compound.props" />
+    <Import Project="..\OpenGL Import.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\Compound.props" />
+    <Import Project="..\OpenGL Import.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\Compound.props" />
+    <Import Project="..\OpenGL Import.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
@@ -159,15 +163,18 @@
     <ClCompile Include="Compound\Core\ComponentManager.cpp" />
     <ClCompile Include="Compound\Core\ComponentType.cpp" />
     <ClCompile Include="Compound\Core\Object.cpp" />
+    <ClCompile Include="Compound\Display\Backend\__Windows_Window.cpp" />
     <ClCompile Include="Compound\Display\DisplayManager.cpp" />
     <ClCompile Include="Compound\Display\Window.cpp" />
-    <ClCompile Include="Compound\Display\__Windows_Window.cpp" />
     <ClCompile Include="Compound\Instance.cpp" />
     <ClCompile Include="Compound\IO\JSONObject.cpp" />
     <ClCompile Include="Compound\ManagerBase.cpp" />
+    <ClCompile Include="Compound\Render\Backend\__OpenGLContext.cpp" />
+    <ClCompile Include="Compound\Render\Context.cpp" />
     <ClCompile Include="Compound\Render\Data\IndexData.cpp" />
     <ClCompile Include="Compound\Render\Data\Mesh.cpp" />
     <ClCompile Include="Compound\Render\Data\ShaderData.cpp" />
+    <ClCompile Include="Compound\Render\RenderManager.cpp" />
     <ClCompile Include="Compound\Render\ShaderLayout.cpp" />
     <ClCompile Include="Run.cpp" />
     <ClCompile Include="TestConsoleLogger.cpp" />
@@ -179,9 +186,9 @@
     <ClInclude Include="Compound\Core\ComponentManager.h" />
     <ClInclude Include="Compound\Core\ComponentType.h" />
     <ClInclude Include="Compound\Core\Object.h" />
+    <ClInclude Include="Compound\Display\Backend\__Windows_Window.h" />
     <ClInclude Include="Compound\Display\DisplayManager.h" />
     <ClInclude Include="Compound\Display\Window.h" />
-    <ClInclude Include="Compound\Display\__Windows_Window.h" />
     <ClInclude Include="Compound\Instance.h" />
     <ClInclude Include="Compound\IO\JSONObject.h" />
     <ClInclude Include="Compound\IO\JSONSerializable.h" />
@@ -189,10 +196,19 @@
     <ClInclude Include="Compound\Math\Vec.h" />
     <ClInclude Include="Compound\Math\Vec.hpp" />
     <ClInclude Include="Compound\Math\VecOp.h" />
+    <ClInclude Include="Compound\Platform.h" />
+    <ClInclude Include="Compound\Render\Backend\__OpenGLContext.h" />
+    <ClInclude Include="Compound\Render\Context.h" />
     <ClInclude Include="Compound\Render\Data\IndexData.h" />
     <ClInclude Include="Compound\Render\Data\Mesh.h" />
     <ClInclude Include="Compound\Render\Data\ShaderData.h" />
+    <ClInclude Include="Compound\Render\RenderManager.h" />
     <ClInclude Include="Compound\Render\ShaderLayout.h" />
+    <ClInclude Include="OpenGL\glcorearb.h" />
+    <ClInclude Include="OpenGL\glext.h" />
+    <ClInclude Include="OpenGL\glxext.h" />
+    <ClInclude Include="OpenGL\KHR\khrplatform.h" />
+    <ClInclude Include="OpenGL\wglext.h" />
     <ClInclude Include="TestConsoleLogger.h" />
     <ClInclude Include="TestFileLogger.h" />
     <ClInclude Include="TestLogger.h" />

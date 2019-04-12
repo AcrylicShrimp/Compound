@@ -23,14 +23,14 @@ namespace Compound::Core
 	public:
 		Component(Object *pObject);
 		Component(const Component &sSrc) = delete;
-		virtual ~Component() = default;
+		virtual ~Component() noexcept = default;
 		
 	public:
 		Component &operator=(const Component &sSrc) = delete;
 		
 	public:
 		virtual const ComponentType *type() const;
-		static std::string_view typeName();
+		static std::string_view typeName() noexcept;
 	};
 }
 

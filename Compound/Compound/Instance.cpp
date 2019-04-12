@@ -11,8 +11,18 @@ namespace Compound
 	Instance::Instance(std::wstring_view sApplicationName) :
 		sApplicationName{sApplicationName},
 		sComponentManager{this},
-		sDisplayManager{this}
+		sDisplayManager{this},
+		sRenderManager{this}
 	{
-		//Empty.
+		this->sComponentManager.initialize();
+		this->sDisplayManager.initialize();
+		this->sRenderManager.initialize();
+	}
+
+	Instance::~Instance()
+	{
+		this->sRenderManager.finalize();
+		this->sDisplayManager.finalize();
+		this->sComponentManager.finalize();
 	}
 }

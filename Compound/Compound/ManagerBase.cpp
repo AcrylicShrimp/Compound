@@ -10,9 +10,9 @@
 
 namespace Compound
 {
-	ManagerBase::ManagerBase(Instance *pInstance) :
+	ManagerBase::ManagerBase(Instance *pInstance) noexcept :
 		pInstance{pInstance}
 	{
-		//Empty.
+		assert(this->pInstance);
 	}
 }

@@ -10,7 +10,7 @@
 
 namespace Compound::Core
 {
-	ComponentManager::ComponentManager(Instance *pInstance) :
+	ComponentManager::ComponentManager(Instance *pInstance) noexcept :
 		ManagerBase(pInstance)
 	{
 		//Empty.

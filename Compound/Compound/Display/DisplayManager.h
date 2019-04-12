@@ -9,6 +9,7 @@
 #define _CLASS_COMPOUND_DISPLAY_DISPLAYMANAGER_H
 
 #include "../ManagerBase.h"
+
 #include "Window.h"
 
 #include <memory>
@@ -25,13 +26,13 @@ namespace Compound::Display
 {
 	class DisplayManager final : public ManagerBase
 	{
-	public:
+	private:
 		std::unordered_map<std::string, std::unique_ptr<Window>> sWindowMap;
 
 	public:
 		DisplayManager(Instance *pInstance);
 		DisplayManager(const DisplayManager &sSrc) = delete;
-		~DisplayManager() = default;
+		~DisplayManager() noexcept = default;
 		
 	public:
 		DisplayManager &operator=(const DisplayManager &sSrc) = delete;
@@ -40,6 +41,7 @@ namespace Compound::Display
 		virtual void initialize() override;
 		virtual void finalize() override;
 		Window *createWindow(std::string_view sId);
+		void destroyWindow(std::string_view sId);
 		Window *getWindow(std::string_view sId);
 		const Window *getWindow(std::string_view sId) const;
 	};
