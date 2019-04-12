@@ -51,7 +51,7 @@ namespace Compound::Display::Backend
 		virtual bool create(Style eStyle, std::wstring_view sTitle) override;
 		virtual void destroy() override;
 		virtual void loopEvent() override;
-		virtual void loopEventAvailable() override;
+		virtual bool loopEventAvailable() override;
 		virtual void setTitle(std::wstring_view sTitle) override;
 		virtual void setVisibility(Visibility eVisibility) override;
 		std::tuple<bool, LRESULT> handleEvent(UINT nMessage, WPARAM nWParam, LPARAM nLParam);

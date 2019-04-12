@@ -38,11 +38,11 @@ namespace Compound::Render::Backend
 			0, 0, 0
 		};
 
-		::SetPixelFormat(hFakeDeviceContext, ::ChoosePixelFormat(hFakeDeviceContext, &sPixelFormatDescriptor), &sPixelFormatDescriptor);
+		auto test = ::SetPixelFormat(hFakeDeviceContext, ::ChoosePixelFormat(hFakeDeviceContext, &sPixelFormatDescriptor), &sPixelFormatDescriptor);
 
-		auto hFakeRenderingContext{wglCreateContext(this->hDeviceContext)};
+		auto hFakeRenderingContext{wglCreateContext(hFakeDeviceContext)};
 
-		::wglMakeCurrent(hFakeDeviceContext, hFakeRenderingContext);
+		test = ::wglMakeCurrent(hFakeDeviceContext, hFakeRenderingContext);
 
 		const auto wglChoosePixelFormatARB{reinterpret_cast<PFNWGLCHOOSEPIXELFORMATARBPROC>(wglGetProcAddress("wglChoosePixelFormatARB"))};
 		const auto wglCreateContextAttribsARB{reinterpret_cast<PFNWGLCREATECONTEXTATTRIBSARBPROC>(wglGetProcAddress("wglCreateContextAttribsARB"))};
@@ -68,10 +68,10 @@ namespace Compound::Render::Backend
 		int nPixelFormatID;
 		UINT nPixelFormatNum;
 
-		wglChoosePixelFormatARB(this->hDeviceContext, vPixelAttrib, nullptr, 1, &nPixelFormatID, &nPixelFormatNum);
+		test = wglChoosePixelFormatARB(this->hDeviceContext, vPixelAttrib, nullptr, 1, &nPixelFormatID, &nPixelFormatNum);
 
-		DescribePixelFormat(this->hDeviceContext, nPixelFormatID, sizeof(PIXELFORMATDESCRIPTOR), &sPixelFormatDescriptor);
-		SetPixelFormat(this->hDeviceContext, nPixelFormatID, &sPixelFormatDescriptor);
+		test = ::DescribePixelFormat(this->hDeviceContext, nPixelFormatID, sizeof(PIXELFORMATDESCRIPTOR), &sPixelFormatDescriptor);
+		test = ::SetPixelFormat(this->hDeviceContext, nPixelFormatID, &sPixelFormatDescriptor);
 
 		const int vContextAttrib[]
 		{
@@ -84,9 +84,9 @@ namespace Compound::Render::Backend
 
 		this->hRenderingContext = wglCreateContextAttribsARB(this->hDeviceContext, 0, vContextAttrib);
 
-		::wglMakeCurrent(nullptr, nullptr);
-		::wglDeleteContext(hFakeRenderingContext);
-		::ReleaseDC(sFakeWindow.windowHandle(), hFakeDeviceContext);
+		test = ::wglMakeCurrent(nullptr, nullptr);
+		test = ::wglDeleteContext(hFakeRenderingContext);
+		test = ::ReleaseDC(sFakeWindow.windowHandle(), hFakeDeviceContext);
 
 		sFakeWindow.destroy();
 #endif
@@ -112,6 +112,13 @@ namespace Compound::Render::Backend
 	{
 #if __COMPOUND_OS_WINDOWS
 		::wglMakeCurrent(this->hDeviceContext, this->hRenderingContext);
+#endif
+	}
+
+	void __OpenGLContext::flush()
+	{
+#if __COMPOUND_OS_WINDOWS
+		::SwapBuffers(this->hDeviceContext);
 #endif
 	}
 

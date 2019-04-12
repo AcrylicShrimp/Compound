@@ -41,6 +41,7 @@ namespace Compound::Render
 
 	public:
 		virtual void bind() = 0;
+		virtual void flush() = 0;
 		virtual void clear(bool bColor, bool bDepth, bool bStencil) = 0;
 		virtual void clearColor(float nR, float nG, float nB, float nA) = 0;
 		virtual void clearDepth(float nD) = 0;

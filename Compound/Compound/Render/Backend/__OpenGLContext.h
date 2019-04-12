@@ -45,6 +45,7 @@ namespace Compound::Render::Backend
 
 	public:
 		virtual void bind() override;
+		virtual void flush() override;
 		virtual void clear(bool bColor, bool bDepth, bool bStencil) override;
 		virtual void clearColor(float nR, float nG, float nB, float nA) override;
 		virtual void clearDepth(float nD) override;

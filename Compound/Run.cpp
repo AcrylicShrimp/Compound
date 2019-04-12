@@ -29,14 +29,14 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	pContext->clearColor(.0f, .0f, .0f, .0f);
 	pContext->clearDepth(1.f);
 	pContext->clear(true, true, false);
+	pContext->flush();
 
 	pWindow->setVisibility(Display::Window::Visibility::VisibleDefault);
 
-	while (true)
+	while (pWindow->loopEventAvailable())
 	{
-		pWindow->loopEventAvailable();
-
 		pContext->clear(true, true, false);
+		pContext->flush();
 	}
 
 	pWindow->destroy();

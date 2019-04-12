@@ -137,18 +137,23 @@ namespace Compound::Display::Backend
 		}
 	}
 
-	void __Windows_Window::loopEventAvailable()
+	bool __Windows_Window::loopEventAvailable()
 	{
 		if (!this->hWindow)
-			return;
+			return false;
 
 		MSG sMessage;
 
 		while (::PeekMessageW(&sMessage, nullptr, 0, 0, PM_REMOVE))
 		{
+			if (sMessage.message == WM_QUIT)
+				return false;
+
 			::TranslateMessage(&sMessage);
 			::DispatchMessageW(&sMessage);
 		}
+
+		return true;
 	}
 
 	void __Windows_Window::setTitle(std::wstring_view sTitle)
