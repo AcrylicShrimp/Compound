@@ -23,7 +23,7 @@ namespace Compound::Render
 
 	void RenderManager::finalize()
 	{
-		//Empty.
+		this->sContextMap.clear();
 	}
 
 	Context *RenderManager::createContext(Display::Window *pWindow, FrameBufferInfo sFrameBufferInfo, std::string_view sRendererName)

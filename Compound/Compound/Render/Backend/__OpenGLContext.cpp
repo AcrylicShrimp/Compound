@@ -7,6 +7,14 @@
 #include "../Context.h"
 #include "__OpenGLContext.h"
 
+#include "__OpenGLExtension.h"
+
+#if __COMPOUND_OS_WINDOWS
+
+#include <OpenGL/wglext.h>
+
+#endif
+
 namespace Compound::Render::Backend
 {
 	__OpenGLContext::__OpenGLContext(Display::Window *pWindow, FrameBufferInfo sFrameBufferInfo) :
@@ -89,7 +97,11 @@ namespace Compound::Render::Backend
 		test = ::ReleaseDC(sFakeWindow.windowHandle(), hFakeDeviceContext);
 
 		sFakeWindow.destroy();
+
+		::wglMakeCurrent(this->hDeviceContext, this->hRenderingContext);
 #endif
+
+		this->pExtension = std::make_unique<__OpenGLExtension>();
 	}
 
 	__OpenGLContext::~__OpenGLContext() noexcept
@@ -105,13 +117,6 @@ namespace Compound::Render::Backend
 
 		this->hRenderingContext = nullptr;
 		this->hDeviceContext = nullptr;
-#endif
-	}
-
-	void __OpenGLContext::bind()
-	{
-#if __COMPOUND_OS_WINDOWS
-		::wglMakeCurrent(this->hDeviceContext, this->hRenderingContext);
 #endif
 	}
 
@@ -144,5 +149,31 @@ namespace Compound::Render::Backend
 	void __OpenGLContext::clearStencil(std::uint32_t nS)
 	{
 		::glClearStencil(nS);
+	}
+
+	Context::NativeHandle __OpenGLContext::newBuffer()
+	{
+		GLuint nHandle;
+
+		this->pExtension->glCreateBuffers(1, &nHandle);
+
+		return nHandle;
+	}
+
+	void __OpenGLContext::deleteBuffer(NativeHandle hNativeHandle)
+	{
+		auto nHandle{static_cast<GLuint>(hNativeHandle)};
+
+		this->pExtension->glDeleteBuffers(1, &nHandle);
+	}
+
+	void __OpenGLContext::fillBuffer(NativeHandle hDst, std::size_t nSize, const void *pData)
+	{
+		this->pExtension->glNamedBufferData(static_cast<GLuint>(hDst), static_cast<GLsizeiptr>(nSize), pData, GL_STATIC_DRAW);
+	}
+
+	void __OpenGLContext::copyBuffer(NativeHandle hSrc, NativeHandle hDst, std::size_t nSrcOffset, std::size_t nDstOffset, std::size_t nSize)
+	{
+		this->pExtension->glCopyNamedBufferSubData(static_cast<GLuint>(hSrc), static_cast<GLuint>(hDst), static_cast<GLintptr>(nSrcOffset), static_cast<GLintptr>(nDstOffset), static_cast<GLsizeiptr>(nSize));
 	}
 }

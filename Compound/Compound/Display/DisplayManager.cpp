@@ -23,7 +23,7 @@ namespace Compound::Display
 
 	void DisplayManager::finalize()
 	{
-		//Empty.
+		this->sWindowMap.clear();
 	}
 
 	Window *DisplayManager::createWindow(std::string_view sId)

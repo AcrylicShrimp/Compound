@@ -28,12 +28,6 @@
     <Filter Include="Compound\Render\Backend">
       <UniqueIdentifier>{a509ceef-22f2-462c-b7a8-5871905b2798}</UniqueIdentifier>
     </Filter>
-    <Filter Include="OpenGL">
-      <UniqueIdentifier>{60557096-35ac-4bd7-90ec-f09a944f1043}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="OpenGL\KHR">
-      <UniqueIdentifier>{90ca04b6-b8ac-49c9-b7ef-b3ef5fe0fafc}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Run.cpp" />
@@ -89,6 +83,12 @@
       <Filter>Compound\Display\Backend</Filter>
     </ClCompile>
     <ClCompile Include="Compound\Render\Backend\__OpenGLContext.cpp">
+      <Filter>Compound\Render\Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="Compound\Render\Data\Buffer.cpp">
+      <Filter>Compound\Render\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Compound\Render\Backend\__OpenGLExtension.cpp">
       <Filter>Compound\Render\Backend</Filter>
     </ClCompile>
   </ItemGroup>
@@ -162,20 +162,14 @@
     <ClInclude Include="Compound\Render\Backend\__OpenGLContext.h">
       <Filter>Compound\Render\Backend</Filter>
     </ClInclude>
-    <ClInclude Include="OpenGL\glcorearb.h">
-      <Filter>OpenGL</Filter>
+    <ClInclude Include="Compound\Render\Data\Buffer.h">
+      <Filter>Compound\Render\Data</Filter>
     </ClInclude>
-    <ClInclude Include="OpenGL\glext.h">
-      <Filter>OpenGL</Filter>
+    <ClInclude Include="Compound\Render\Data\Buffer.hpp">
+      <Filter>Compound\Render\Data</Filter>
     </ClInclude>
-    <ClInclude Include="OpenGL\glxext.h">
-      <Filter>OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="OpenGL\wglext.h">
-      <Filter>OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="OpenGL\KHR\khrplatform.h">
-      <Filter>OpenGL\KHR</Filter>
+    <ClInclude Include="Compound\Render\Backend\__OpenGLExtension.h">
+      <Filter>Compound\Render\Backend</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 
 #include "Compound/Instance.h"
+#include "Compound/Render/Data/Buffer.h"
 
 #include <Windows.h>
 
@@ -25,7 +26,6 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	if (!pContext)
 		return -1;
 
-	pContext->bind();
 	pContext->clearColor(.0f, .0f, .0f, .0f);
 	pContext->clearDepth(1.f);
 	pContext->clear(true, true, false);
