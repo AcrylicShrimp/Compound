@@ -13,6 +13,8 @@
 #include <cassert>
 #include <cstdint>
 #include <string>
+#include <string_view>
+#include <tuple>
 #include <type_traits>
 
 namespace Compound::Render
@@ -24,6 +26,12 @@ namespace Compound::Render
 		std::uint8_t nDepthBit;
 		std::uint8_t nStencilBit;
 		std::uint8_t nMultisample;
+	};
+
+	enum class SubshaderType
+	{
+		Vertex,
+		Fragment
 	};
 
 	class Context
@@ -65,9 +73,18 @@ namespace Compound::Render
 		virtual void clearDepth(float nD) = 0;
 		virtual void clearStencil(std::uint32_t nS) = 0;
 		virtual NativeHandle newBuffer() = 0;
-		virtual void deleteBuffer(NativeHandle hNativeHandle) = 0;
-		virtual void fillBuffer(NativeHandle hDst, std::size_t nSize, const void *pData = nullptr) = 0;
-		virtual void copyBuffer(NativeHandle hSrc, NativeHandle hDst, std::size_t nSrcOffset, std::size_t nDstOffset, std::size_t nSize) = 0;
+		virtual void deleteBuffer(NativeHandle hBuffer) = 0;
+		virtual void fillBuffer(NativeHandle hDstBuffer, std::size_t nSize, const void *pData = nullptr) = 0;
+		virtual void copyBuffer(NativeHandle hSrcBuffer, NativeHandle hDstBuffer, std::size_t nSrcOffset, std::size_t nDstOffset, std::size_t nSize) = 0;
+		virtual NativeHandle newShader() = 0;
+		virtual void deleteShader(NativeHandle hShader) = 0;
+		virtual NativeHandle newSubshader(SubshaderType eSubshaderType) = 0;
+		virtual void deleteSubshader(NativeHandle hSubshader) = 0;
+		virtual std::tuple<bool, std::string> compileSubshader(NativeHandle hSubshader, std::string_view sSource) = 0;
+		virtual void attachSubshader(NativeHandle hShader, NativeHandle hSubshader) = 0;
+		virtual void detachSubshader(NativeHandle hShader, NativeHandle hSubshader) = 0;
+		virtual std::tuple<bool, std::string> linkShader(NativeHandle hShader) = 0;
+		virtual void activeShader(NativeHandle hShader) = 0;
 	};
 }
 

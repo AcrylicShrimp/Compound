@@ -175,6 +175,7 @@
     <ClCompile Include="Compound\Render\Data\Buffer.cpp" />
     <ClCompile Include="Compound\Render\Data\IndexData.cpp" />
     <ClCompile Include="Compound\Render\Data\Mesh.cpp" />
+    <ClCompile Include="Compound\Render\Data\Shader.cpp" />
     <ClCompile Include="Compound\Render\Data\ShaderData.cpp" />
     <ClCompile Include="Compound\Render\RenderManager.cpp" />
     <ClCompile Include="Compound\Render\ShaderLayout.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="Compound\Render\Data\Buffer.hpp" />
     <ClInclude Include="Compound\Render\Data\IndexData.h" />
     <ClInclude Include="Compound\Render\Data\Mesh.h" />
+    <ClInclude Include="Compound\Render\Data\Shader.h" />
     <ClInclude Include="Compound\Render\Data\ShaderData.h" />
     <ClInclude Include="Compound\Render\RenderManager.h" />
     <ClInclude Include="Compound\Render\ShaderLayout.h" />

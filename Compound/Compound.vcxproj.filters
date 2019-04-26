@@ -91,6 +91,9 @@
     <ClCompile Include="Compound\Render\Backend\__OpenGLExtension.cpp">
       <Filter>Compound\Render\Backend</Filter>
     </ClCompile>
+    <ClCompile Include="Compound\Render\Data\Shader.cpp">
+      <Filter>Compound\Render\Data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Compound\Core\ComponentManager.h">
@@ -170,6 +173,9 @@
     </ClInclude>
     <ClInclude Include="Compound\Render\Backend\__OpenGLExtension.h">
       <Filter>Compound\Render\Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="Compound\Render\Data\Shader.h">
+      <Filter>Compound\Render\Data</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

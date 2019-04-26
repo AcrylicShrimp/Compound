@@ -15,6 +15,9 @@
 #define __COMPOUND_CONTEXT_SUPPORTED_OPENGL 1
 
 #include <memory>
+#include <string>
+#include <string_view>
+#include <tuple>
 
 #if __COMPOUND_OS_WINDOWS
 
@@ -51,9 +54,18 @@ namespace Compound::Render::Backend
 		virtual void clearDepth(float nD) override;
 		virtual void clearStencil(std::uint32_t nS) override;
 		virtual NativeHandle newBuffer() override;
-		virtual void deleteBuffer(NativeHandle nNativeHandle) override;
-		virtual void fillBuffer(NativeHandle hDst, std::size_t nSize, const void *pData = nullptr) override;
-		virtual void copyBuffer(NativeHandle hSrc, NativeHandle hDst, std::size_t nSrcOffset, std::size_t nDstOffset, std::size_t nSize) override;
+		virtual void deleteBuffer(NativeHandle hBuffer) override;
+		virtual void fillBuffer(NativeHandle hDstBuffer, std::size_t nSize, const void *pData = nullptr) override;
+		virtual void copyBuffer(NativeHandle hSrcBuffer, NativeHandle hDstBuffer, std::size_t nSrcOffset, std::size_t nDstOffset, std::size_t nSize) override;
+		virtual NativeHandle newShader() override;
+		virtual void deleteShader(NativeHandle hShader) override;
+		virtual NativeHandle newSubshader(SubshaderType eSubshaderType) override;
+		virtual void deleteSubshader(NativeHandle hSubshader) override;
+		virtual std::tuple<bool, std::string> compileSubshader(NativeHandle hSubshader, std::string_view sSource) override;
+		virtual void attachSubshader(NativeHandle hShader, NativeHandle hSubshader) override;
+		virtual void detachSubshader(NativeHandle hShader, NativeHandle hSubshader) override;
+		virtual std::tuple<bool, std::string> linkShader(NativeHandle hShader) override;
+		virtual void activeShader(NativeHandle hShader) override;
 	};
 }
 

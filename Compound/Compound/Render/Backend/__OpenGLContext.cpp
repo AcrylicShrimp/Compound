@@ -176,4 +176,84 @@ namespace Compound::Render::Backend
 	{
 		this->pExtension->glCopyNamedBufferSubData(static_cast<GLuint>(hSrc), static_cast<GLuint>(hDst), static_cast<GLintptr>(nSrcOffset), static_cast<GLintptr>(nDstOffset), static_cast<GLsizeiptr>(nSize));
 	}
+
+	Context::NativeHandle __OpenGLContext::newShader()
+	{
+		return this->pExtension->glCreateProgram();
+	}
+
+	void __OpenGLContext::deleteShader(NativeHandle hShader)
+	{
+		this->pExtension->glDeleteShader(hShader);
+	}
+
+	Context::NativeHandle __OpenGLContext::newSubshader(SubshaderType eSubshaderType)
+	{
+		switch (eSubshaderType)
+		{
+		case SubshaderType::Vertex:
+			return this->pExtension->glCreateShader(GL_VERTEX_SHADER);
+
+		case SubshaderType::Fragment:
+			return this->pExtension->glCreateShader(GL_FRAGMENT_SHADER);
+
+		default:
+			return nullptr;
+		}
+	}
+
+	void __OpenGLContext::deleteSubshader(NativeHandle hSubshader)
+	{
+		this->pExtension->glDeleteShader(hSubshader);
+	}
+
+	std::tuple<bool, std::string> __OpenGLContext::compileSubshader(NativeHandle hSubshader, std::string_view sSource)
+	{
+		const auto *pSource{sSource.data()};
+
+		this->pExtension->glShaderSource(hSubshader, 1, &pSource, nullptr);
+		this->pExtension->glCompileShader(hSubshader);
+
+		GLint nStatus;
+		this->pExtension->glGetShaderiv(hSubshader, GL_COMPILE_STATUS, &nStatus);
+
+		GLint nLogLength;
+		this->pExtension->glGetShaderiv(hSubshader, GL_INFO_LOG_LENGTH, &nLogLength);
+
+		std::string sLog(nLogLength, '\0');
+		this->pExtension->glGetShaderInfoLog(hSubshader, nLogLength, nullptr, sLog.data());
+
+		return std::make_tuple(nStatus == GL_TRUE, std::move(sLog));
+	}
+
+	void __OpenGLContext::attachSubshader(NativeHandle hShader, NativeHandle hSubshader)
+	{
+		this->pExtension->glAttachShader(hShader, hSubshader);
+	}
+
+	void __OpenGLContext::detachSubshader(NativeHandle hShader, NativeHandle hSubshader)
+	{
+		this->pExtension->glDetachShader(hShader, hSubshader);
+	}
+
+	std::tuple<bool, std::string> __OpenGLContext::linkShader(NativeHandle hShader)
+	{
+		this->pExtension->glLinkProgram(hShader);
+
+		GLint nStatus;
+		this->pExtension->glGetProgramiv(hShader, GL_LINK_STATUS, &nStatus);
+
+		GLint nLogLength;
+		this->pExtension->glGetProgramiv(hShader, GL_INFO_LOG_LENGTH, &nLogLength);
+
+		std::string sLog(nLogLength, '\0');
+		this->pExtension->glGetProgramInfoLog(hShader, nLogLength, nullptr, sLog.data());
+
+		return std::make_tuple(nStatus == GL_TRUE, std::move(sLog));
+	}
+
+	void __OpenGLContext::activeShader(NativeHandle hShader)
+	{
+		this->pExtension->glUseProgram(hShader);
+	}
 }
