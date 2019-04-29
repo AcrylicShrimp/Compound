@@ -26,7 +26,7 @@ namespace Compound::Render
 		this->sContextMap.clear();
 	}
 
-	Context *RenderManager::createContext(Display::Window *pWindow, FrameBufferInfo sFrameBufferInfo, std::string_view sRendererName)
+	Context *RenderManager::createContext(Display::Window *pWindow, Context::FrameBufferInfo sFrameBufferInfo, std::string_view sRendererName)
 	{
 		assert(pWindow);
 

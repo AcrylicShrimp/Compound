@@ -46,7 +46,7 @@ namespace Compound::Render
 	public:
 		virtual void initialize() override;
 		virtual void finalize() override;
-		Context *createContext(Display::Window *pWindow, FrameBufferInfo sFrameBufferInfo, std::string_view sRendererName);
+		Context *createContext(Display::Window *pWindow, Context::FrameBufferInfo sFrameBufferInfo, std::string_view sRendererName);
 		void destroyContext(Display::Window *pWindow);
 		Context *getContext(Display::Window *pWindow);
 		const Context *getContext(Display::Window *pWindow) const;

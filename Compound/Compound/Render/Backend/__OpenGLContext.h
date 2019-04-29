@@ -18,6 +18,8 @@
 #include <string>
 #include <string_view>
 #include <tuple>
+#include <utility>
+#include <vector>
 
 #if __COMPOUND_OS_WINDOWS
 
@@ -66,6 +68,10 @@ namespace Compound::Render::Backend
 		virtual void detachSubshader(NativeHandle hShader, NativeHandle hSubshader) override;
 		virtual std::tuple<bool, std::string> linkShader(NativeHandle hShader) override;
 		virtual void activeShader(NativeHandle hShader) override;
+		virtual std::vector<std::tuple<std::string, std::int32_t>> getShaderInput(NativeHandle hShader) override;
+		virtual std::vector<std::tuple<std::string, std::int32_t>> getShaderGlobalInput(NativeHandle hShader) override;
+		virtual NativeHandle generateShaderLayout(NativeHandle hShader) override;
+		virtual void deleteShaderLayout(NativeHandle hShaderLayout) override;
 	};
 }
 

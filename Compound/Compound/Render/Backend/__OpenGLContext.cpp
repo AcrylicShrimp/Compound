@@ -1,4 +1,4 @@
-
+﻿
 /*
 	2019.04.12
 	Created by AcrylicShrimp.
@@ -23,9 +23,9 @@ namespace Compound::Render::Backend
 #if __COMPOUND_OS_WINDOWS
 		Display::Backend::__Windows_Window sFakeWindow{this->pWindow->pInstance, this->pWindow->sId + "::fake"};
 		sFakeWindow.create(Display::Window::Style::ContentOnly, L"");
-		
+
 		auto hFakeDeviceContext{::GetDC(sFakeWindow.windowHandle())};
-		
+
 		PIXELFORMATDESCRIPTOR sPixelFormatDescriptor
 		{
 			sizeof(PIXELFORMATDESCRIPTOR),
@@ -59,17 +59,17 @@ namespace Compound::Render::Backend
 
 		const int vPixelAttrib[]
 		{
-			WGL_DRAW_TO_WINDOW_ARB,		GL_TRUE,
-			WGL_SUPPORT_OPENGL_ARB,		GL_TRUE,
-			WGL_DOUBLE_BUFFER_ARB,		GL_TRUE,
-			WGL_PIXEL_TYPE_ARB,			WGL_TYPE_RGBA_ARB,
-			WGL_ACCELERATION_ARB,		WGL_FULL_ACCELERATION_ARB,
-			WGL_COLOR_BITS_ARB,			sFrameBufferInfo.nColorBit,
-			WGL_ALPHA_BITS_ARB,			sFrameBufferInfo.nAlphaBit,
-			WGL_DEPTH_BITS_ARB,			sFrameBufferInfo.nDepthBit,
-			WGL_STENCIL_BITS_ARB,		sFrameBufferInfo.nStencilBit,
-			WGL_SAMPLE_BUFFERS_ARB,		sFrameBufferInfo.nMultisample == 0 ? GL_FALSE : GL_TRUE,
-			WGL_SAMPLES_ARB,			sFrameBufferInfo.nMultisample,
+			WGL_DRAW_TO_WINDOW_ARB, GL_TRUE,
+			WGL_SUPPORT_OPENGL_ARB, GL_TRUE,
+			WGL_DOUBLE_BUFFER_ARB, GL_TRUE,
+			WGL_PIXEL_TYPE_ARB, WGL_TYPE_RGBA_ARB,
+			WGL_ACCELERATION_ARB, WGL_FULL_ACCELERATION_ARB,
+			WGL_COLOR_BITS_ARB, sFrameBufferInfo.nColorBit,
+			WGL_ALPHA_BITS_ARB, sFrameBufferInfo.nAlphaBit,
+			WGL_DEPTH_BITS_ARB, sFrameBufferInfo.nDepthBit,
+			WGL_STENCIL_BITS_ARB, sFrameBufferInfo.nStencilBit,
+			WGL_SAMPLE_BUFFERS_ARB, sFrameBufferInfo.nMultisample == 0 ? GL_FALSE : GL_TRUE,
+			WGL_SAMPLES_ARB, sFrameBufferInfo.nMultisample,
 			0
 		};
 
@@ -83,8 +83,8 @@ namespace Compound::Render::Backend
 
 		const int vContextAttrib[]
 		{
-			WGL_CONTEXT_MAJOR_VERSION_ARB,		4,
-			WGL_CONTEXT_MINOR_VERSION_ARB,		5,
+			WGL_CONTEXT_MAJOR_VERSION_ARB, 4,
+			WGL_CONTEXT_MINOR_VERSION_ARB, 5,
 			WGL_CONTEXT_PROFILE_MASK_ARB,
 			WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
 			0
@@ -255,5 +255,143 @@ namespace Compound::Render::Backend
 	void __OpenGLContext::activeShader(NativeHandle hShader)
 	{
 		this->pExtension->glUseProgram(hShader);
+	}
+
+	std::vector<std::tuple<std::string, std::int32_t>> __OpenGLContext::getShaderInput(NativeHandle hShader)
+	{
+		GLint nInputCount;
+		this->pExtension->glGetProgramInterfaceiv(hShader, GL_PROGRAM_INPUT, GL_ACTIVE_RESOURCES, &nInputCount);
+
+		std::vector<std::tuple<std::string, std::int32_t>> sInputList;
+		sInputList.reserve(nInputCount);
+
+		GLenum vProperty[]
+		{
+			GL_NAME_LENGTH,
+			GL_LOCATION
+		};
+		GLint vResult[2];
+
+		for (GLint nIndex{0}; nIndex < nInputCount; ++nIndex)
+		{
+			this->pExtension->glGetProgramResourceiv(hShader, GL_PROGRAM_INPUT, static_cast<GLuint>(nIndex), 2, vProperty, 2, nullptr, vResult);
+
+			std::string sName(vResult[0], '\0');
+			this->pExtension->glGetProgramResourceName(hShader, GL_PROGRAM_INPUT, static_cast<GLuint>(nIndex), vResult[0], nullptr, sName.data());
+
+			sInputList.emplace_back(std::move(sName), vResult[1]);
+		}
+
+		return sInputList;
+	}
+
+	std::vector<std::tuple<std::string, std::int32_t>> __OpenGLContext::getShaderGlobalInput(NativeHandle hShader)
+	{
+		GLint numBlocks;
+		this->pExtension->glGetProgramiv(hShader, GL_ACTIVE_UNIFORM_BLOCKS, &numBlocks);
+
+		std::vector<std::string> nameList;
+		nameList.reserve(numBlocks);
+		for (int blockIx = 0; blockIx < numBlocks; ++blockIx)
+		{
+			GLint nameLen;
+			this->pExtension->glGetActiveUniformBlockiv(hShader, blockIx, GL_UNIFORM_BLOCK_NAME_LENGTH, &nameLen);
+
+			std::vector<GLchar> name;
+			name.resize(nameLen);
+			this->pExtension->glGetActiveUniformBlockName(hShader, blockIx, nameLen, NULL, &name[0]);
+
+			nameList.push_back(std::string());
+			nameList.back().assign(name.begin(), name.end() - 1); //Remove the null terminator.
+		}
+
+		GLint nGlobalInputCount;
+		this->pExtension->glGetProgramInterfaceiv(hShader, GL_UNIFORM, GL_ACTIVE_RESOURCES, &nGlobalInputCount);
+
+		std::vector<std::tuple<std::string, std::int32_t>> sGlobalInputList;
+		sGlobalInputList.reserve(nGlobalInputCount);
+
+		GLenum vProperty[]
+		{
+			GL_NAME_LENGTH,
+			GL_LOCATION
+		};
+		GLint vResult[2];
+
+		for (GLint nIndex{0}; nIndex < nGlobalInputCount; ++nIndex)
+		{
+			this->pExtension->glGetProgramResourceiv(hShader, GL_UNIFORM, static_cast<GLuint>(nIndex), 2, vProperty, 2, nullptr, vResult);
+
+			std::string sName(vResult[0], '\0');
+			this->pExtension->glGetProgramResourceName(hShader, GL_UNIFORM, static_cast<GLuint>(nIndex), vResult[0], nullptr, sName.data());
+
+			sGlobalInputList.emplace_back(std::move(sName), vResult[1]);
+		}
+
+		return sGlobalInputList;
+	}
+
+	Context::NativeHandle __OpenGLContext::generateShaderLayout(NativeHandle hShader)
+	{
+		GLuint hShaderLayout;
+		this->pExtension->glCreateVertexArrays(1, &hShaderLayout);
+
+		//GLint nInputCount;
+		//this->pExtension->glGetProgramInterfaceiv(hShader, GL_PROGRAM_INPUT, GL_ACTIVE_RESOURCES, &nInputCount);
+		//
+		//GLenum vProperty[]
+		//{
+		//	GL_TYPE,
+		//	GL_LOCATION
+		//};
+		//GLint vResult[2];
+		//
+		//for (GLint nIndex{0}; nIndex < nInputCount; ++nIndex)
+		//{
+		//	this->pExtension->glGetProgramResourceiv(hShader, GL_PROGRAM_INPUT, static_cast<GLuint>(nIndex), 2, vProperty, 2, nullptr, vResult);
+		//
+		//	switch (vResult[0])
+		//	{
+		//
+		//
+		//	case GL_FLOAT:
+		//		this->pExtension->glVertexArrayAttribFormat(hShaderLayout, static_cast<GLuint>(vResult[1]), 1, GL_FLOAT, false, sizeof(GLfloat) * 1);
+		//		break;
+		//	case GL_FLOAT_VEC2:
+		//		this->pExtension->glVertexArrayAttribFormat(hShaderLayout, static_cast<GLuint>(vResult[1]), 2, GL_FLOAT, false, sizeof(GLfloat) * 2);
+		//		break;
+		//	case GL_FLOAT_VEC3:
+		//		this->pExtension->glVertexArrayAttribFormat(hShaderLayout, static_cast<GLuint>(vResult[1]), 3, GL_FLOAT, false, sizeof(GLfloat) * 3);
+		//		break;
+		//	case GL_FLOAT_VEC4:
+		//		this->pExtension->glVertexArrayAttribFormat(hShaderLayout, static_cast<GLuint>(vResult[1]), 4, GL_FLOAT, false, sizeof(GLfloat) * 4);
+		//		break;
+		//
+		//	case GL_DOUBLE:
+		//		this->pExtension->glVertexArrayAttribLFormat(hShaderLayout, static_cast<GLuint>(vResult[1]), 1, GL_DOUBLE, sizeof(GLdouble) * 1);
+		//		break;
+		//	case GL_DOUBLE_VEC2:
+		//		this->pExtension->glVertexArrayAttribLFormat(hShaderLayout, static_cast<GLuint>(vResult[1]), 2, GL_DOUBLE, sizeof(GLdouble) * 2);
+		//		break;
+		//	case GL_DOUBLE_VEC3:
+		//		this->pExtension->glVertexArrayAttribLFormat(hShaderLayout, static_cast<GLuint>(vResult[1]), 3, GL_DOUBLE, sizeof(GLdouble) * 3);
+		//		break;
+		//	case GL_DOUBLE_VEC4:
+		//		this->pExtension->glVertexArrayAttribLFormat(hShaderLayout, static_cast<GLuint>(vResult[1]), 4, GL_DOUBLE, sizeof(GLdouble) * 4);
+		//		break;
+		//	}
+		//
+		//	std::string sName(vResult[0], '\0');
+		//	this->pExtension->glGetProgramResourceName(hShader, GL_PROGRAM_INPUT, static_cast<GLuint>(nIndex), vResult[0], nullptr, sName.data());
+		//
+		//	sInputList.emplace_back(std::move(sName), vResult[1]);
+		//}
+
+		return hShaderLayout;
+	}
+
+	void __OpenGLContext::deleteShaderLayout(NativeHandle hShaderLayout)
+	{
+
 	}
 }

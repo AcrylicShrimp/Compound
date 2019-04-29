@@ -16,27 +16,59 @@
 #include <string_view>
 #include <tuple>
 #include <type_traits>
+#include <vector>
 
 namespace Compound::Render
 {
-	struct FrameBufferInfo
-	{
-		std::uint8_t nColorBit;
-		std::uint8_t nAlphaBit;
-		std::uint8_t nDepthBit;
-		std::uint8_t nStencilBit;
-		std::uint8_t nMultisample;
-	};
-
-	enum class SubshaderType
-	{
-		Vertex,
-		Fragment
-	};
-
 	class Context
 	{
 	public:
+		struct FrameBufferInfo
+		{
+			std::uint8_t nColorBit;
+			std::uint8_t nAlphaBit;
+			std::uint8_t nDepthBit;
+			std::uint8_t nStencilBit;
+			std::uint8_t nMultisample;
+		};
+
+		enum class SubshaderType
+		{
+			Vertex,
+			Fragment
+		};
+
+		enum class ShaderLayoutDimension
+		{
+			Dim1x1,
+			Dim1x2,
+			Dim1x3,
+			Dim1x4,
+			Dim2x2,
+			Dim2x3,
+			Dim2x4,
+			Dim3x2,
+			Dim3x3,
+			Dim3x4,
+			Dim4x2,
+			Dim4x3,
+			Dim4x4
+		};
+
+		//enum class ShaderLayoutType
+		//{
+		//	Byte,
+		//	uByte,
+		//	Short,
+		//	uShort,
+		//	Int,
+		//	uInt,
+		//	Fixed,
+		//	Half,
+		//	Float,
+		//	Double
+		//};
+
 		struct NativeHandle final
 		{
 		private:
@@ -85,6 +117,14 @@ namespace Compound::Render
 		virtual void detachSubshader(NativeHandle hShader, NativeHandle hSubshader) = 0;
 		virtual std::tuple<bool, std::string> linkShader(NativeHandle hShader) = 0;
 		virtual void activeShader(NativeHandle hShader) = 0;
+		virtual std::vector<std::tuple<std::string, std::int32_t>> getShaderInput(NativeHandle hShader) = 0;
+		virtual std::vector<std::tuple<std::string, std::int32_t>> getShaderGlobalInput(NativeHandle hShader) = 0;
+		virtual NativeHandle generateShaderLayout(NativeHandle hShader) = 0;
+		virtual void deleteShaderLayout(NativeHandle hShaderLayout) = 0;
+		//virtual NativeHandle newShaderLayout() = 0;
+		//virtual void deleteShaderLayout(NativeHandle hShaderLayout) = 0;
+		//virtual void activeShaderLayout(NativeHandle hShaderLayout) = 0;
+		//virtual void specifyShaderLayout(NativeHandle hShaderLayout, std::string_view sName, ) = 0;
 	};
 }
 
