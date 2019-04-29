@@ -1,11 +1,17 @@
 
 #include "Compound/Instance.h"
-#include "Compound/Render/Data/Buffer.h"
-#include "Compound/Render/Data/Shader.h"
 
 #include <Windows.h>
 
+#ifdef _DEBUG
+
+int main()
+
+#else
+
 int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
+
+#endif
 {
 	using namespace Compound;
 
@@ -22,59 +28,33 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 		24,
 		8,
 		0
-		}, "opengl")};
+	})};
 
 	if (!pContext)
 		return -1;
 
-	Render::Data::Shader sShader{pContext};
-
-	{
-		auto sBuilder{sShader.builder()};
-
-		auto vertex = sBuilder.attach(Render::Context::SubshaderType::Vertex,
-			"\n#version 450"
-			"\n"
-			"\nuniform mat4 test;"
-			"\n"
-			"\nin vec3 vert_in;"
-			"\n"
-			"\nvoid main()"
-			"\n{"
-			"\n\tgl_Position = vec4(vert_in, 1.0) * test;"
-			"\n}");
-
-		auto fragment = sBuilder.attach(Render::Context::SubshaderType::Fragment,
-			"\n#version 450"
-			"\n"
-			"\nuniform mat4 test;"
-			"\n"
-			"\nout vec4 out_color;"
-			"\n"
-			"\nvoid main()"
-			"\n{"
-			"\n\tout_color = vec4(1.0, 1.0, 1.0, 1.0);"
-			"\n}");
-
-		auto link = sBuilder.link();
-	}
-
-	pContext->clearColor(.0f, .0f, .0f, .0f);
-	pContext->clearDepth(1.f);
-	pContext->clear(true, true, false);
-	pContext->flush();
+	//pContext->clearColor(.0f, .0f, .0f, .0f);
+	//pContext->clearDepth(1.f);
+	//pContext->clear(true, true, false);
+	//pContext->flush();
 
 	pWindow->setVisibility(Display::Window::Visibility::VisibleDefault);
+	pWindow->loopEvent();
 
-	while (pWindow->loopEventAvailable())
-	{
-		pContext->clear(true, true, false);
+	//while (pWindow->loopEvent())
+	//{
+	//	//pContext->clear(true, true, false);
+	//
+	//	//sShader.active();
+	//
+	//
+	//
+	//	pContext->flush();
+	//}
 
-		sShader.active();
+	pWindow->setVisibility(Display::Window::Visibility::Invisible);
 
-
-		pContext->flush();
-	}
+	sInstance.sRenderManager.destroyContext(pWindow);
 
 	pWindow->destroy();
 

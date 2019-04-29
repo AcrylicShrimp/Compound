@@ -26,32 +26,16 @@ namespace Compound::Render
 		this->sContextMap.clear();
 	}
 
-	Context *RenderManager::createContext(Display::Window *pWindow, Context::FrameBufferInfo sFrameBufferInfo, std::string_view sRendererName)
+	Context *RenderManager::createContext(Display::Window *pWindow, Context::FrameBufferInfo sFrameBufferInfo)
 	{
 		assert(pWindow);
 
 		auto iIndex{this->sContextMap.find(pWindow)};
 
 		if (iIndex != this->sContextMap.cend())
-			//return iIndex->second->sRendererInfo.sRendererName == sRendererName ? iIndex->second.get() : nullptr;
-			return nullptr;
+			return iIndex->second.get();
 
-		std::string sLowerRenderName{sRendererName};
-		std::transform(sLowerRenderName.begin(), sLowerRenderName.end(), sLowerRenderName.begin(), std::tolower);
-
-		std::unique_ptr<Context> pContext;
-
-#if __COMPOUND_CONTEXT_SUPPORTED_OPENGL
-
-		if (sLowerRenderName == "opengl")
-			pContext = std::unique_ptr<Context>{new Backend::__OpenGLContext{pWindow, sFrameBufferInfo}};
-
-#endif
-
-		if (!pContext)
-			return nullptr;
-
-		return this->sContextMap.emplace(pWindow, std::move(pContext)).first->second.get();
+		return this->sContextMap.emplace(pWindow, std::make_unique<Context>(pWindow, sFrameBufferInfo)).first->second.get();
 	}
 
 	void RenderManager::destroyContext(Display::Window *pWindow)

@@ -25,9 +25,6 @@
     <Filter Include="Compound\Display\Backend">
       <UniqueIdentifier>{f02cb0f7-de5c-4b75-9cbb-ae8c446a9aea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Compound\Render\Backend">
-      <UniqueIdentifier>{a509ceef-22f2-462c-b7a8-5871905b2798}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Run.cpp" />
@@ -82,14 +79,8 @@
     <ClCompile Include="Compound\Display\Backend\__Windows_Window.cpp">
       <Filter>Compound\Display\Backend</Filter>
     </ClCompile>
-    <ClCompile Include="Compound\Render\Backend\__OpenGLContext.cpp">
-      <Filter>Compound\Render\Backend</Filter>
-    </ClCompile>
     <ClCompile Include="Compound\Render\Data\Buffer.cpp">
       <Filter>Compound\Render\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="Compound\Render\Backend\__OpenGLExtension.cpp">
-      <Filter>Compound\Render\Backend</Filter>
     </ClCompile>
     <ClCompile Include="Compound\Render\Data\Shader.cpp">
       <Filter>Compound\Render\Data</Filter>
@@ -165,17 +156,11 @@
     <ClInclude Include="Compound\Display\Backend\__Windows_Window.h">
       <Filter>Compound\Display\Backend</Filter>
     </ClInclude>
-    <ClInclude Include="Compound\Render\Backend\__OpenGLContext.h">
-      <Filter>Compound\Render\Backend</Filter>
-    </ClInclude>
     <ClInclude Include="Compound\Render\Data\Buffer.h">
       <Filter>Compound\Render\Data</Filter>
     </ClInclude>
     <ClInclude Include="Compound\Render\Data\Buffer.hpp">
       <Filter>Compound\Render\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="Compound\Render\Backend\__OpenGLExtension.h">
-      <Filter>Compound\Render\Backend</Filter>
     </ClInclude>
     <ClInclude Include="Compound\Render\Data\Shader.h">
       <Filter>Compound\Render\Data</Filter>
